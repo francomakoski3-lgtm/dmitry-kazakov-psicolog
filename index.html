@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ÐÐ¼Ð¸ÑÑÐ¸Ð¹ ÐÐ°Ð·Ð°ÐºÐ¾Ð² â ÐÑÐ¸ÑÐ¾Ð»Ð¾Ð³ | Dmitry Kazakov â Psychologist | ×××××¨× ×§××§×× â ×¤×¡××××××</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage:    #6b8f71;
+      --sage-lt: #a8c5ab;
+      --sage-dk: #4a6950;
+      --cream:   #f7f4ef;
+      --warm:    #ede8df;
+      --charcoal:#2c2c2c;
+      --mid:     #5a5a5a;
+      --light:   #8a8a8a;
+      --white:   #ffffff;
+      --shadow:  rgba(0,0,0,.08);
+      --radius:  14px;
+      --transition: .3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+
+    /* ===== RTL support for Hebrew ===== */
+    html[lang="he"] { direction: rtl; }
+    html[lang="he"] body { font-family: 'Arial Hebrew', Arial, sans-serif; }
+
+    /* ===== HIDDEN LANGUAGE CONTENT ===== */
+    [data-lang] { display: none; }
+    html[lang="ru"] [data-lang="ru"],
+    html[lang="he"] [data-lang="he"],
+    html[lang="en"] [data-lang="en"] { display: inherit; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,244,239,.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--warm);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 700; color: var(--sage-dk);
+      text-decoration: none; letter-spacing: .5px;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--mid); font-size: .92rem;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--sage-dk); }
+    .lang-switcher { display: flex; gap: 6px; }
+    .lang-btn {
+      border: 1.5px solid var(--sage-lt);
+      background: transparent; border-radius: 6px;
+      padding: 4px 10px; font-size: .8rem; cursor: pointer;
+      color: var(--mid); transition: all var(--transition);
+    }
+    .lang-btn.active,
+    .lang-btn:hover { background: var(--sage); color: var(--white); border-color: var(--sage); }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #f0ede6 0%, #dce8de 100%);
+      padding: 80px 5% 60px;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: flex; gap: 60px; align-items: center; flex-wrap: wrap;
+    }
+    .hero-text { flex: 1; min-width: 280px; }
+    .hero-tag {
+      display: inline-block; background: var(--sage-lt);
+      color: var(--sage-dk); border-radius: 20px;
+      padding: 5px 16px; font-size: .82rem; font-weight: 600;
+      margin-bottom: 20px; letter-spacing: .6px;
+    }
+    .hero-name {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800; color: var(--sage-dk);
+      line-height: 1.15; margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      color: var(--mid); margin-bottom: 28px; font-weight: 400;
+    }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--mid);
+      max-width: 520px; margin-bottom: 36px;
+    }
+    .btn-primary {
+      display: inline-block; background: var(--sage-dk);
+      color: var(--white); text-decoration: none;
+      padding: 14px 34px; border-radius: var(--radius);
+      font-size: 1rem; font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+    .hero-image {
+      flex: 0 0 300px; height: 360px;
+      background: linear-gradient(160deg, var(--sage-lt) 0%, var(--sage) 100%);
+      border-radius: 24px; display: flex; align-items: center;
+      justify-content: center; font-size: 7rem; color: var(--white);
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    section { padding: 90px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: .8rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--sage);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800; color: var(--charcoal);
+      margin-bottom: 18px; line-height: 1.25;
+    }
+    .section-sub {
+      font-size: 1.05rem; color: var(--mid);
+      max-width: 600px; margin-bottom: 50px;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: start;
+    }
+    .about-values { display: flex; flex-direction: column; gap: 18px; }
+    .value-item {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .value-icon {
+      width: 42px; height: 42px; background: var(--warm);
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .value-text h4 { font-size: .98rem; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+    .value-text p { font-size: .9rem; color: var(--mid); }
+
+    /* ===== PSYCHOSOMATICS ===== */
+    #psychosomatics { background: var(--cream); }
+    .psych-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; margin-top: 10px;
+    }
+    .psych-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px; border-left: 4px solid var(--sage-lt);
+      box-shadow: 0 2px 16px var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    html[lang="he"] .psych-card { border-left: none; border-right: 4px solid var(--sage-lt); }
+    .psych-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px var(--shadow); }
+    .psych-card .icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .psych-card h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+    .psych-card p { font-size: .88rem; color: var(--mid); line-height: 1.6; }
+
+    /* ===== SERVICES ===== */
+    #services { background: var(--white); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+    }
+    .service-card {
+      background: var(--cream); border-radius: var(--radius);
+      padding: 36px 32px; position: relative; overflow: hidden;
+      box-shadow: 0 2px 16px var(--shadow);
+      transition: transform var(--transition);
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card.featured { background: var(--sage-dk); color: var(--white); }
+    .service-card.featured .price,
+    .service-card.featured h3,
+    .service-card.featured p,
+    .service-card.featured li { color: var(--white); }
+    .service-card.featured .service-tag { background: rgba(255,255,255,.2); color: var(--white); }
+    .service-tag {
+      display: inline-block; background: var(--sage-lt);
+      color: var(--sage-dk); border-radius: 20px;
+      padding: 3px 12px; font-size: .78rem; font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .service-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; color: var(--charcoal); }
+    .price {
+      font-size: 2.2rem; font-weight: 800; color: var(--sage-dk);
+      margin-bottom: 6px; line-height: 1;
+    }
+    .price-note { font-size: .82rem; color: var(--light); margin-bottom: 20px; }
+    .service-card ul { list-style: none; padding: 0; margin-bottom: 28px; }
+    .service-card li {
+      font-size: .9rem; color: var(--mid); padding: 6px 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-card li::before { content: "â"; color: var(--sage); font-weight: 700; }
+    .service-card.featured li::before { color: var(--sage-lt); }
+    .service-card p { font-size: .92rem; color: var(--mid); margin-bottom: 24px; }
+
+    /* ===== HOW IT WORKS ===== */
+    #how { background: linear-gradient(135deg, #dce8de 0%, #f0ede6 100%); }
+    .steps { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+    .step {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px 24px; flex: 1; min-width: 180px; max-width: 220px;
+      text-align: center; box-shadow: 0 2px 16px var(--shadow);
+    }
+    .step-num {
+      width: 48px; height: 48px; background: var(--sage-dk);
+      color: var(--white); border-radius: 50%; font-weight: 800;
+      font-size: 1.2rem; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 14px;
+    }
+    .step h4 { font-size: .95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+    .step p { font-size: .84rem; color: var(--mid); }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--white); }
+    .contact-inner {
+      text-align: center; max-width: 620px; margin: 0 auto;
+    }
+    .contact-info {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 20px; margin: 36px 0;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--cream); border-radius: 10px;
+      padding: 12px 20px; font-size: .92rem; color: var(--mid);
+    }
+    .contact-item span { font-size: 1.2rem; }
+    .policy-note {
+      font-size: .82rem; color: var(--light); margin-top: 20px;
+      padding: 14px; background: var(--warm); border-radius: 10px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--charcoal); color: #aaa;
+      text-align: center; padding: 28px 5%; font-size: .84rem;
+    }
+    footer strong { color: var(--sage-lt); }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-image { display: none; }
+      .nav-links { display: none; }
+      .steps { gap: 16px; }
+      .step { min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Ð. ÐÐ°Ð·Ð°ÐºÐ¾Ð²</a>
+  <ul class="nav-links">
+    <li><a href="#about">
+      <span data-lang="ru">ÐÐ±Ð¾ Ð¼Ð½Ðµ</span>
+      <span data-lang="he">×¢×××</span>
+      <span data-lang="en">About</span>
+    </a></li>
+    <li><a href="#psychosomatics">
+      <span data-lang="ru">ÐÑÐ¸ÑÐ¾ÑÐ¾Ð¼Ð°ÑÐ¸ÐºÐ°</span>
+      <span data-lang}"he">×¤×¡××××¡×××××§×</span>
+      <span data-lang="en">Psychosomatics</span>
+    </a></li>
+    <li><a href="#services">
+      <span data-lang="ru">Ð£ÑÐ»ÑÐ³Ð¸</span>
+      <span data-lang="he">×©××¨××ª××</span>
+      <span data-lang="en">Services</span>
+    </a></li>
+    <li><a href="#contact">
+      <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ</span>
+      <span data-lang="he">××ª×××</span>
+      <span data-lang="en">Book</span>
+    </a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('ru')">Ð Ð£</button>
+    <button class="lang-btn" onclick="setLang('he')">×¢×</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">
+        <span data-lang="ru">ÐÑÐ¸ÑÐ¾Ð»Ð¾Ð³ Â· ÐÐ·ÑÐ°Ð¸Ð»Ñ</span>
+        <span data-lang="he">×¤×¡×××××× Â· ××©×¨××</span>
+        <span data-lang="en">Psychologist Â· Israel</span>
+      </div>
+      <h1 class="hero-name">ÐÐ¼Ð¸ÑÑÐ¸Ð¹ ÐÐ°Ð·Ð°ÐºÐ¾Ð²</h1>
+      <p class="hero-title">
+        <span data-lang="ru">ÐÑÐ¸ÑÐ¾Ð»Ð¾Ð³ Â· ÐÑÐ¸ÑÐ¾ÑÐ¾Ð¼Ð°ÑÐ¸ÐºÐ° Â· ÐÐ¸ÑÐ½Ð¾ÑÑÐ½ÑÐ¹ ÑÐ¾ÑÑ</span>
+        <span data-lang="he">×¤×¡×××××× Â· ×¤×¡××××¡×××××§× Â· ×¦×××× ×××©××ª</span>
+        <span data-lang="en">Psychologist Â· Psychosomatics Â· Personal Growth</span>
+      </p>
+      <p class="hero-desc">
+        <span data-lang="ru">ÐÑÐ»Ð¸ Ð²Ñ ÑÑÐ¾Ð»ÐºÐ½ÑÐ»Ð¸ÑÑ ÑÐ¾ ÑÑÑÐ°ÑÐ¾Ð¼, Ð¾Ð±Ð¸Ð´Ð¾Ð¹, ÑÑÐ²ÑÑÐ²Ð¾Ð¼ Ð²Ð¸Ð½Ñ Ð¸Ð»Ð¸ ÑÑÑÐ´Ð° â Ð²Ñ Ð½Ðµ Ð¾Ð´Ð½Ð¸. ÐÐ´ÐµÑÑ Ð²Ñ Ð¿Ð¾Ð»ÑÑÐ¸ÑÐµ Ð¿ÑÐ¾ÑÐµÑÑÐ¸Ð¾Ð½Ð°Ð»ÑÐ½ÑÑ Ð¿Ð¾Ð´Ð´ÐµÑÐ¶ÐºÑ, Ð¿Ð¾Ð¹Ð¼ÑÑÐµ ÑÐ²Ð¾Ð¸ ÑÐ¼Ð¾ÑÐ¸Ð¸ Ð¸ Ð½Ð°ÑÐ½ÑÑÐµ ÑÐ°Ð±Ð¾ÑÐ°ÑÑ Ð½Ð°Ð´ ÑÐ²Ð¾Ð¸Ð¼ Ð¿ÑÐ¸ÑÐ¾Ð»Ð¾Ð³Ð¸ÑÐµÑÐºÐ¸Ð¼ Ð·Ð´Ð¾ÑÐ¾Ð²ÑÐµÐ¼.</span>
+        <span data-lang="he">×× ××ª× ××ª×××××× ×¢× ×¤××, ××× ×, ××©×× ×× ×××©× â ××ª× ×× ×××. ××× ×ª×§××× ××××× × ××§×¦××¢××ª, ×ª××× × ××ª ×¨××©××ª××× ××ª×ª×××× ××¢××× ×¢× ×××¨××××ª ×× ×¤×©××ª ×©×××.</span>
+        <span data-lang="en">If you're dealing with fear, resentment, guilt or shame â you're not alone. Here you'll receive professional guidance, understand your emotions and begin working on your mental health.</span>
+      </p>
+      <a href="#contact" class="btn-primary">
+        <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ Ð½Ð° ÐºÐ¾Ð½ÑÑÐ»ÑÑÐ°ÑÐ¸Ñ</span>
+        <span data-lang="he">××ª××× ×¤×××©×</span>
+        <span data-lang="en">Book a Session</span>
+      </a>
+    </div>
+    <div class="hero-image" style="background: linear-gradient(160deg, var(--sage-lt) 0%, var(--sage) 100%); display:flex; align-items:center; justify-content:center; font-size:8rem;">ð§ </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <p class="section-tag">
+          <span data-lang="ru">ÐÐ±Ð¾ Ð¼Ð½Ðµ</span>
+          <span data-lang="he">×¢×××</span>
+          <span data-lang="en">About me</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang="ru">ÐÐ¼Ð¸ÑÑÐ¸Ð¹ ÐÐ°Ð·Ð°ÐºÐ¾Ð²</span>
+          <span data-lang="he">×××××¨× ×§××§××</span>
+          <span data-lang="en">Dmitry Kazakov</span>
+        </h2>
+        <p class="section-sub">
+          <span data-lang="ru">ÐÐ¾Ñ ÑÐµÐ»Ñ â Ð¿Ð¾Ð¼Ð¾ÑÑ Ð²Ð°Ð¼ Ð¿Ð¾Ð½ÑÑÑ ÑÐµÐ±Ñ, ÑÐ°Ð·Ð²Ð¸ÑÑ Ð½Ð°Ð²ÑÐºÐ¸ Ð¸ ÑÐ¿ÑÐ°Ð²Ð¸ÑÑÑÑ Ñ ÑÑÑÐ´Ð½Ð¾ÑÑÑÐ¼Ð¸, ÑÐ¾ÑÑÐ°Ð½ÑÑ Ð¿ÑÐ¸ ÑÑÐ¾Ð¼ Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑÑ, Ð´Ð¾Ð²ÐµÑÐ¸Ðµ, Ð¾ÑÐ¾Ð·Ð½Ð°Ð½Ð½Ð¾ÑÑÑ Ð¸ ÑÐ²Ð°Ð¶ÐµÐ½Ð¸Ðµ Ðº Ð²Ð°ÑÐµÐ¼Ñ ÑÐµÐ¼Ð¿Ñ.</span>
+          <span data-lang="he">××××¨× ×©×× ××× ××¢×××¨ ××× ××××× ××ª ×¢×¦×××, ××¤×ª× ××××× ××××ª ××××ª×××× ×¢× ×§×©×××, ×ª×× ×©×××¨× ×¢× ××××××, ××××, ××××¢××ª ××××× ××§×¦× ×©×××.</span>
+          <span data-lang="en">My goal is to help you understand yourself, develop skills and cope with difficulties, while maintaining safety, trust, awareness and respect for your pace.</span>
+        </p>
+      </div>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon">ð¡ï¸</div>
+          <div class="value-text">
+            <h4>
+              <span data-lang="ru">ÐÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑÑ</span>
+              <span data-lang="he">××××××</span>
+              <span data-lang="en">Safety</span>
+            </h4>
+            <p>
+              <span data-lang="ru">ÐÐ¾Ð½ÑÐ¸Ð´ÐµÐ½ÑÐ¸Ð°Ð»ÑÐ½Ð°Ñ, Ð±ÐµÐ·Ð¾ÑÐµÐ½Ð¾ÑÐ½Ð°Ñ ÑÑÐµÐ´Ð° Ð´Ð»Ñ Ð²Ð°ÑÐµÐ¹ ÑÐ°Ð±Ð¾ÑÑ</span>
+              <span data-lang="he">×¡×××× ××¡××× ××× ×©××¤××××ª ××¢××××ª××</span>
+              <span data-lang="en">A confidential, non-judgmental environment for your work</span>
+            </p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">ð¤</div>
+          <div class="value-text">
+            <h4>
+              <span data-lang="ru">ÐÐ¾Ð²ÐµÑÐ¸Ðµ</span>
+              <span data-lang="he">××××</span>
+              <span data-lang="en">Trust</span>
+            </h4>
+            <p>
+              <span data-lang="ru">ÐÐ°Ñ ÑÐµÐ¼Ð¿, Ð²Ð°ÑÐ¸ Ð³ÑÐ°Ð½Ð¸ÑÑ, Ð²Ð°ÑÐµ Ð¿ÑÐ¾ÑÑÑÐ°Ð½ÑÑÐ²Ð¾</span>
+              <span data-lang="he">××§×¦× ×©×××, ×××××××ª ×©×××, ×××¨×× ×©×××</span>
+              <span data-lang="en">Your pace, your boundaries, your space</span>
+            </p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">ð±</div>
+          <div class="value-text">
+            <h4>
+              <span data-lang="ru">ÐÑÐ¾Ð·Ð½Ð°Ð½Ð½Ð¾ÑÑÑ</span>
+              <span data-lang="he">××××¢××ª</span>
+              <span data-lang="en">Awareness</span>
+            </h4>
+            <p>
+              <span data-lang="ru">ÐÐ»ÑÐ±Ð¾ÐºÐ¾Ðµ Ð¿Ð¾Ð½Ð¸Ð¼Ð°Ð½Ð¸Ðµ Ð²Ð°ÑÐ¸Ñ ÑÐ¼Ð¾ÑÐ¸Ð¸ Ð¸ Ð¿Ð°ÑÑÐµÑÐ½Ð¾Ð²</span>
+              <span data-lang="he">××× × ×¢×××§× ×©× ×¨××©××ª××× ×××¤××¡×××</span>
+              <span data-lang="en">Deep understanding of your emotions and patterns</span>
+            </p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">â±ï¸</div>
+          <div class="value-text">
+            <h4>
+              <span data-lang="ru">Ð¡ÐµÑÑÐ¸Ð¸ 45â55 Ð¼Ð¸Ð½ÑÑ</span>
+              <span data-lang="he">×¤×××©××ª 45â55 ××§××ª</span>
+              <span data-lang="en">Sessions 45â55 minutes</span>
+            </h4>
+            <p>
+              <span data-lang="ru">ÐÐ¾ÑÑÐ°ÑÐ¾ÑÐ½Ð¾ Ð²ÑÐµÐ¼ÐµÐ½Ð¸ Ð´Ð»Ñ Ð³Ð»ÑÐ±Ð¾ÐºÐ¾Ð¹ Ð¸ Ð¿ÑÐ¾Ð´ÑÐºÑÐ¸Ð²Ð½Ð¾Ð¹ ÑÐ°Ð±Ð¾ÑÑ</span>
+              <span data-lang="he">××¡×¤××§ ××× ××¢×××× ×¢×××§× ××¤××¨×</span>
+              <span data-lang="en">Enough time for deep and productive work</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PSYCHOSOMATICS -->
+<section id="psychosomatics">
+  <div class="section-inner">
+    <p class="section-tag">
+      <span data-lang="ru">Ð¡Ð¿ÐµÑÐ¸Ð°Ð»Ð¸Ð·Ð°ÑÐ¸Ñ</span>
+      <span data-lang="he">××ª××××ª</span>
+      <span data-lang="en">Specialization</span>
+    </p>
+    <h2 class="section-title">
+      <span data-lang="ru">ÐÑÐ¸ÑÐ¾ÑÐ¾Ð¼Ð°ÑÐ¸Ðº</span>
+      <span data-lang="he">×¤×¡××××¡×××××§×</span>
+      <span data-lang="en">Psychosomatics</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">ÐÑÐ¸ÑÐ¾ÑÐ¾Ð¼Ð°ÑÐ¸ÐºÐ° â ÑÑÐ¾ ÑÐ¾ÑÑÐ¾ÑÐ½Ð¸Ðµ, Ð¿ÑÐ¸ ÐºÐ¾ÑÐ¾ÑÐ¾Ð¼ Ð¿ÑÐ¸ÑÐ¸ÑÐµÑÐºÐ¸Ðµ ÑÐ°ÐºÑÐ¾ÑÑ, ÑÐ°ÐºÐ¸Ðµ ÐºÐ°Ðº ÑÑÑÐµÑÑ Ð¸Ð»Ð¸ ÑÑÐµÐ²Ð¾Ð³Ð°, Ð²Ð»Ð¸ÑÐ½Ð¸Ðµ Ð½Ð° ÑÐµÐ»Ð¾ Ð¸ Ð²ÑÐ·ÑÐ²Ð°ÑÑ ÑÐ¸Ð·Ð¸ÑÐµÑÐºÐ¸Ðµ ÑÐ¸Ð¼Ð¿ÑÐ¾Ð¼Ñ. ÐÐ¾Ð³Ð´Ð° ÑÐ¼Ð¾ÑÐ¸Ð¸ Ð¿Ð¾Ð´Ð°Ð²Ð»ÑÑÑÑÑ, ÑÐµÐ»Ð¾ Ð³Ð¾Ð²Ð¾ÑÐ¸Ñ Ð²Ð¼ÐµÑÑÐ¾ Ð½Ð°Ñ.</span>
+      <span data-lang="he">×¤×¡××××¡×××××§× ××× ×××¦× ×©×× ×××¨××× × ×¤×©×××, ××× ×¡××¨×¡ ×× ××¨××, ××©×¤××¢×× ×¢× ××××£ ××××¨××× ××ª×¡××× ×× ×¤×××××. ××©×¨××©××ª ×××××§××, ××××£ ××××¨ ×××§××× ×.</span>
+      <span data-lang="en">Psychosomatics is the condition where mental factors, such as stress or anxiety, affect the body and cause physical symptoms. When emotions are suppressed, the body speaks for us.</span>
+    </p>
+    <div class="psych-grid">
+      <div class="psych-card">
+        <div class="icon">ð«</div>
+        <h3>
+          <span data-lang="ru">Ð¢ÑÐµÐ²Ð¾Ð³Ð° Ð¸ ÑÑÑÐµÑÑ</span>
+          <span data-lang="he">××¨×× ××¡××¨×¡</span>
+          <span data-lang="en">Anxiety & Stress</span>
+        </h3>
+        <p>
+          <span data-lang="ru">Ð¥ÑÐ¾Ð½Ð¸ÑÐµÑÐºÐ¸Ð¹ ÑÑÑÐµÑÑ Ð¿ÑÐ¾ÑÐ²Ð»ÑÐµÑÑÑ Ð² ÑÐ¸Ð·Ð¸ÑÐµÑÐºÐ¸Ñ ÑÐ¸Ð¼Ð¿ÑÐ¾Ð¼Ð°Ñ: Ð³Ð¾Ð»Ð¾Ð²Ð½Ð°Ñ Ð±Ð¾Ð»Ñ, ÑÑÑÐ°Ð»Ð¾ÑÑÑ, Ð½Ð°Ð¿ÑÑÐ¶ÐµÐ½Ð¸Ðµ Ð² ÑÐµÐ»Ðµ</span>
+          <span data-lang="he">×¡××¨×¡ ××¨×× × ××ª××× ××ª×¡××× ×× ×¤×××××: ××× ×¨××©, ×¢×××¤××ª, ××ª× ××××£</span>
+          <span data-lang="en">Chronic stress manifests in physical symptoms: headaches, fatigue, body tension</span>
+        </p>
+      </div>
+      <div class="psych-card">
+        <div class="icon">ð</div>
+        <h3>
+          <span data-lang="ru">ÐÐ¾Ð´Ð°Ð²Ð»ÐµÐ½Ð½ÑÐµ ÑÐ¼Ð¾ÑÐ¸Ð¸</span>
+          <span data-lang="he">×¨××©××ª ×××××§××</span>
+          <span data-lang="en">Suppressed Emotions</span>
+        </h3>
+        <p>
+          <span data-lang="ru">ÐÐ°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð² Ð³ÑÑÐ´Ð¸, ÐºÐ¾Ð¼ Ð² Ð³Ð¾ÑÐ»Ðµ, ÑÑÑÐ°Ð»Ð¾ÑÑÑ â ÑÐµÐ»Ð¾ ÑÑÐ°Ð½Ð¸Ñ ÑÐ¾, ÑÑÐ¾ Ð¼Ñ Ð½Ðµ Ð¿Ð¾Ð·Ð²Ð¾Ð»ÑÐµÐ¼ ÑÐµÐ±Ðµ ÑÑÐ²ÑÑÐ²Ð¾Ð²Ð°ÑÑ</span>
+          <span data-lang="he">×××¥ ××××, ×××© ×××¨××, ×¢×××¤××ª â ××××£ ×©×××¨ ××ª ×× ×©×× ×× × ×× ××¨×©×× ××¢×¦×× × ××××©</span>
+          <span data-lang="en">Chest pressure, lump in the throat, fatigue â the body stores what we don't allow ourselves to feel</span>
+        </p>
+      </div>
+      <div class="psych-card">
+        <div class="icon">ð</div>
+        <h3>
+          <span data-lang="ru">Ð¡ÑÑÐ°Ñ, Ð¾Ð±Ð¸Ð´Ð°, Ð²Ð¸Ð½Ð°, ÑÑÑÐ´</span>
+          <span data-lang="he">×¤××, ××× ×, ××©××, ×××©×</span>
+          <span data-lang="en">Fear, Resentment, Guilt, Shame</span>
+        </h3>
+        <p>
+          <span data-lang="ru">Ð Ð°Ð±Ð¾ÑÐ° Ñ Ð³Ð»ÑÐ±Ð¸Ð½Ð½ÑÐ¼Ð¸ ÑÐ¼Ð¾ÑÐ¸ÑÐ¼Ð¸, ÐºÐ¾ÑÐ¾ÑÑÐµ Ð²Ð»Ð¸ÑÑÑ Ð½Ð° Ð²Ð°ÑÐµ ÑÐ°Ð¼Ð¾ÑÑÐ²ÑÑÐ²Ð¸Ðµ Ð¸ ÐºÐ°ÑÐµÑÑÐ²Ð¾ Ð¶Ð¸Ð·Ð½Ð¸</span>
+          <span data-lang="he">×¢×××× ×¢× ×¨××©××ª ×¢×××§×× ×××©×¤××¢×× ×¢× ××¨××©×ª×× ××××××ª ×××××</span>
+          <span data-lang="en">Working with deep emotions that affect your well-being and quality of life</span>
+        </p>
+      </div>
+      <div class="psych-card">
+        <div class="icon">ð</div>
+        <h3>
+          <span data-lang="ru">ÐÐ°ÑÑÐµÑÐ½Ñ Ð¸ Ð¿ÑÐ¸Ð²ÑÑÐºÐ¸</span>
+          <span data-lang="he">××¤××¡×× ×××¨××××</span>
+          <span data-lang="en">Patterns & Habits</span>
+        </h3>
+        <p>
+          <span data-lang="ru">ÐÑÐ¾Ð·Ð½Ð°Ð½Ð¸Ðµ Ð¿Ð¾Ð²ÑÐ¾ÑÑÑÑÐ¸ÑÑÑ ÑÑÐµÐ½Ð°ÑÐ¸ÐµÐ² Ð¸ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð½Ð¾Ð²ÑÑ, Ð±Ð¾Ð»ÐµÐµ Ð·Ð´Ð¾ÑÐ¾Ð²ÑÑ ÑÑÑÐ°ÑÐµÐ³Ð¸Ð¹ Ð¿Ð¾Ð²ÐµÐ´ÐµÐ½Ð¸Ñ</span>
+          <span data-lang="he">××××× ×ª×¡×¨×××× ××××¨×× ×××¦××¨×ª ××¡××¨×××××ª ××ª× ××××ª ×××©××ª ×××¨××××ª ×××ª×¨</span>
+          <span data-lang="en">Recognizing recurring patterns and creating new, healthier behavioral strategies</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-tag">
+      <span data-lang="ru">Ð£ÑÐ»ÑÐ³Ð¸ Ð¸ ÑÐµÐ½Ñ</span>
+      <span data-lang="he">×©××¨××ª×× ×××××¨××</span>
+      <span data-lang="en">Services & Pricing</span>
+    </p>
+    <h2 class="section-title">
+      <span data-lang="ru">ÐÐ°Ðº Ñ Ð¼Ð¾Ð³Ñ Ð¿Ð¾Ð¼Ð¾ÑÑ</span>
+      <span data-lang="he">×××¦× ×××× ××¢×××¨</span>
+      <span data-lang="en">How I Can Help</span>
+    </h2>
+    <div class="services-grid">
+      <!-- Consultation -->
+      <div class="service-card">
+        <span class="service-tag">
+          <span data-lang="ru">ÐÐ¾Ð½ÑÑÐ»ÑÑÐ°ÑÐ¸Ñ</span>
+          <span data-lang="he">×××¢××¥</span>
+          <span data-lang="en">Consultation</span>
+        </span>
+        <h3>
+          <span data-lang="ru">ÐÑÐ¸ÑÐ¾Ð»Ð¾Ð³Ð¸ÑÐµÑÐºÐ°Ñ ÐºÐ¾Ð½ÑÑÐ»ÑÑÐ°ÑÐ¸Ñ</span>
+          <span data-lang="he">×××¢××¥ ×¤×¡×××××××</span>
+          <span data-lang="en">Psychological Consultation</span>
+        </h3>
+        <div class="price">âª450</div>
+        <p class="price-note">
+          <span data-lang="ru">Ð·Ð° ÑÐµÑÑÐ¸Ñ Â· 45â55 Ð¼Ð¸Ð½ÑÑ</span>
+          <span data-lang="he">××¤×××©× Â· 45â55 ××§××ª</span>
+          <span data-lang="en">per session Â· 45â55 minutes</span>
+        </p>
+        <ul>
+          <li>
+            <span data-lang="ru">Ð Ð°Ð·Ð±Ð¾Ñ ÐºÐ¾Ð½ÐºÑÐµÑÐ½Ð¾Ð³Ð¾ Ð·Ð°Ð¿ÑÐ¾ÑÐ° Ð¸Ð»Ð¸ ÑÐ¸ÑÑÐ°ÑÐ¸Ð¸</span>
+            <span data-lang="he">×¢×××× ××§×©× ×× ××¦× ×¡×¤×¦××¤×</span>
+            <span data-lang="en">Analysis of a specific request or situation</span>
+          </li>
+          <li>
+            <span data-lang="ru">ÐÐ¾Ð½Ð¸Ð¼Ð°Ð½Ð¸Ðµ ÑÐ¼Ð¾ÑÐ¸Ð¹ Ð¸ ÑÐµÐ°ÐºÑÐ¸Ð¹</span>
+            <span data-lang="he">××× ×ª ×¨××©××ª ××ª×××××ª</span>
+            <span data-lang="en">Understanding emotions and reactions</span>
+          </li>
+          <li>
+            <span data-lang="ru">ÐÑÐ°ÐºÑÐ¸ÑÐµÑÐºÐ¸Ðµ ÑÐµÐºÐ¾Ð¼ÐµÐ½Ð´Ð°ÑÐ¸Ð¹</span>
+            <span data-lang="he">××××¦××ª ××¢×©×××ª</span>
+            <span data-lang="en">Practical recommendations</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn-primary">
+          <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ</span>
+          <span data-lang="he">××ª×××</span>
+          <span data-lang="en">Book now</span>
+        </a>
+      </div>
+      <!-- Package -->
+      <div class="service-card featured">
+        <span class="service-tag">
+          <span data-lang="ru">ÐÐ¾Ð¿ÑÐ»ÑÑÐ½Ð¾Ðµ</span>
+          <span data-lang="he">×¤××¤×××¨×</span>
+          <span data-lang="en">Popular</span>
+        </span>
+        <h3>
+          <span data-lang="ru">Ð ÐµÑÐµÐ½Ð¸Ðµ Ð¿ÑÐ¾Ð±Ð»ÐµÐ¼Ñ â ÑÐ¸ÐºÐ» 3 ÑÐµÑÑÐ¸Ð¸</span>
+          <span data-lang="he">×¤×ª×¨×× ××¢×× â ×××××¨ 3 ×¤×××©××ª</span>
+          <span data-lang="en">Problem Resolution â 3-Session Cycle</span>
+        </h3>
+        <div class="price">âª3,500</div>
+        <p class="price-note">
+          <span data-lang="ru">Ð¿Ð¾Ð»Ð½ÑÐ¹ ÑÐ¸ÐºÐ» Â· ÑÐºÐ¾Ð½Ð¾Ð¼Ð¸Ñ âª850</span>
+          <span data-lang="he">×××××¨ ××× Â· ×××¡××× âª850</span>
+          <span data-lang="en">full cycle Â· save âª850</span>
+        </p>
+        <ul>
+          <li>
+            <span data-lang="ru">3 ÑÑÑÑÐºÑÑÑÐ¸ÑÐ¾Ð²Ð°Ð½ Ð½ÑÐµ ÑÐµÑÑÐ¸Ð¸ Ð¿Ð¾ÐºÐ¾Ð½ÐºÑÐµÑÐ½Ð¾Ð¹ ÑÐµÐ¼Ðµ</span>
+            <span data-lang="he">3 ×¤×××©××ª ×××× ××ª ×× ××©× ×¡×¤×¦××¤×</span>
+            <span data-lang="en">3 structured sessions on a specific topic</span>
+          </li>
+          <li>
+            <span data-lang="ru">ÐÑÑÐ»ÐµÐ¶Ð¸Ð²Ð°Ð½Ð¸Ðµ Ð¿ÑÐ¾Ð³ÑÐµÑÑÐ° Ð¸ ÑÐµÐ·ÑÐ»ÑÑÐ°ÑÐ°</span>
+            <span data-lang="he">××¢×§× ×××¨ ××ª×§××××ª ××ª××¦××</span>
+            <span data-lang="en">Progress tracking and outcome</span>
+          </li>
+          <li>
+            <span data-lang="ru">ÐÐ¾Ð´Ð´ÐµÑÐ¶ÐºÐ° Ð¼ÐµÐ¶Ð´Ñ ÑÐµÑÑÐ¸ÑÐ¼Ð¸</span>
+            <span data-lang="he">×ª×××× ××× ××¤×××©××ª</span>
+            <span data-lang="en">Support between sessions</span>
+          </li>
+          <li>
+            <span data-lang="ru">ÐÐ¾Ð½ÐºÑÐµÑÐ½ÑÐ¹ Ð¿Ð»Ð°Ð½ Ð´ÐµÐ¹ÑÑÐ²Ð¸Ð¹</span>
+            <span data-lang="he">×ª××× ××ª ×¤×¢××× ×¡×¤×¦××¤××ª</span>
+            <span data-lang="en">Specific action plan</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="background:white;color:var(--sage-dk);">
+          <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ</span>
+          <span data-lang="he">××ª×××</span>
+          <span data-lang="en">Book now</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <p class="section-tag" style="text-align:center;">
+      <span data-lang="ru">ÐÐ°Ðº ÑÑÐ¾ ÑÐ°Ð±Ð¾ÑÐ°ÐµÑ</span>
+      <span data-lang="he">××× ×× ×¢×××</span>
+      <span data-lang="en">How it works</span>
+    </p>
+    <h2 class="section-title" style="text-align:center;">
+      <span data-lang="ru">ÐÑÑÑ ÐºÐ»Ð¸ÐµÐ½ÑÐ°</span>
+      <span data-lang="he">××¡×¢ ×××§××</span>
+      <span data-lang="en">Your journey</span>
+    </h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>
+          <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÑ</span>
+          <span data-lang="he">××¨×©××</span>
+          <span data-lang="en">Book</span>
+        </h4>
+        <p>
+          <span data-lang="ru">ÐÑÐ±ÐµÑÐ¸ÑÐµ ÑÐ´Ð¾Ð±Ð½Ð¾Ðµ Ð²ÑÐµÐ¼Ñ Ð¾Ð½Ð»Ð°Ð¹Ð½</span>
+          <span data-lang="he">×××¨× ××× × ×× ××××¤× ××§×××</span>
+          <span data-lang="en">Choose a convenient time online</span>
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>
+          <span data-lang="ru">ÐÐ¾Ð´ÑÐ²ÐµÑÐ¶Ð´ÐµÐ½Ð¸Ðµ</span>
+          <span data-lang="he">×××©××¨</span>
+          <span data-lang="en">Confirm</span>
+        </h4>
+        <p>
+          <span data-lang="ru">ÐÑÐ¸Ð½ÑÑÐ¸Ðµ ÑÑÐ»Ð¾Ð²Ð¸Ð¸ Ð¸ Ð¿ÑÐµÐ´Ð¾Ð¿Ð»Ð°ÑÐ°</span>
+          <span data-lang="he">×§×××ª ×ª× ××× ××ª×©××× ××§×××</span>
+          <span data-lang="en">Accept terms & prepayment</span>
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>
+          <span data-lang="ru">Ð¡ÐµÑÑÐ¸Ñ</span>
+          <span data-lang="he">×¤×××©×</span>
+          <span data-lang="en">Session</span>
+        </h4>
+        <p>
+          <span data-lang="ru">45â55 Ð¼Ð¸Ð½ÑÑ Ð¿ÑÐ¾Ð´ÑÐºÑÐ¸Ð²Ð½Ð¾Ð¹ ÑÐ°Ð±Ð¾ÑÑ</span>
+          <span data-lang="he">45â55 ××§××ª ×¢×××× ×¤××¨×</span>
+          <span data-lang="en">45â55 minutes of productive work</span>
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>
+          <span data-lang="ru">Ð ÐµÐ·ÑÐ»ÑÑÐ°Ñ</span>
+          <span data-lang="he">×ª×××¨×</span>
+          <span data-lang="en">Result</span>
+        </h4>
+        <p>
+          <span data-lang="ru">Ð¯ÑÐ½Ð¾ÑÑÑ, Ð¸Ð½ÑÑÑÑÐ¼ÐµÐ½ÑÑ, Ð¿ÑÐ¾Ð³ÑÐµÑÑ</span>
+          <span data-lang="he">××××¨××ª, ××××, ××ª×§××××ª</span>
+          <span data-lang="en">Clarity, tools, progress</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <p class="section-tag">
+        <span data-lang="ru">ÐÐ¾Ð½ÑÐ°ÐºÑ</span>
+        <span data-lang="he">×¦××¨ ×§×©×¨</span>
+        <span data-lang="en">Contact</span>
+      </p>
+      <h2 class="section-title">
+        <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ Ð½Ð° ÐºÐ¾Ð½ÑÑÐ»ÑÑÐ°ÑÐ¸Ñ</span>
+        <span data-lang="he">××ª××× ×¤×××©×</span>
+        <span data-lang="en">Book a Session</span>
+      </h2>
+      <p style="color:var(--mid); font-size:.95rem;">
+        <span data-lang="ru">Ð¡Ð²ÑÐ¶Ð¸ÑÐµÑÑ ÑÐ¾ Ð¼Ð½Ð¾Ð¹ Ð»ÑÐ±ÑÐ¼ ÑÐ´Ð¾Ð±Ð½ÑÐ¼ ÑÐ¿Ð¾ÑÐ¾Ð±Ð¾Ð¼ â Ð¾ÑÐ²ÐµÑÑ Ð² ÑÐµÑÐµÐ½Ð¸Ðµ 24 ÑÐ°ÑÐ¾Ð²</span>
+        <span data-lang="he">×¦×¨× ×××ª× ×§×©×¨ ××× ××¨× × ××× â ×××××¨ ×ª×× 24 ×©×¢××ª</span>
+        <span data-lang="en">Reach me any convenient way â I'll respond within 24 hours</span>
+      </p>
+      <div class="contact-info">
+        <div class="contact-item"><span>ð±</span> WhatsApp / Telegram</div>
+        <div class="contact-item"><span>ð§</span> Email</div>
+        <a href="https://www.instagram.com/dimatherapy" target="_blank" class="contact-item" style="text-decoration:none;"><span>ð¸</span> @dimatherapy</a>
+      </div>
+      <a href="#contact" class="btn-primary" style="font-size:1.05rem; padding:16px 40px;">
+        <span data-lang="ru">ÐÐ°Ð¿Ð¸ÑÐ°ÑÑÑÑ ÑÐµÐ¹ÑÐ°Ñ</span>
+        <span data-lang="he">××ª××× ×¢××©××</span>
+        <span data-lang="en">Book now</span>
+      </a>
+      <div class="policy-note">
+        <span data-lang="ru">â ï¸ ÐÐ¾Ð»Ð¸ÑÐ¸ÐºÐ° Ð¾ÑÐ¼ÐµÐ½Ñ: Ð¾ÑÐ¼ÐµÐ½Ð° Ð½Ðµ Ð¿Ð¾Ð·Ð´Ð½ÐµÐµ 24 ÑÐ°ÑÐ¾Ð² Ð´Ð¾ Ð²ÑÑÑÐµÑÐ¸. ÐÑÐµÐ´Ð¾Ð¿Ð»Ð°ÑÐ° 20â30% Ð¿ÑÐ¸ Ð·Ð°Ð¿Ð¸ÑÐ¸.</span>
+        <span data-lang="he">â ï¸ ×××× ×××ª ×××××: ××××× ×× ×××××¨ ×-24 ×©×¢××ª ××¤× × ××¤×××©×. ×ª×©××× ××§××× 20â30% ××¢×ª ×××¨×©××.</span>
+        <span data-lang="en">â ï¸ Cancellation policy: cancel no later than 24 hours before the appointment. 20â30% prepayment required at booking.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>ÐÐ¼Ð¸ÑÑÐ¸Ð¹ ÐÐ°Ð·Ð°ÐºÐ¾Ð² Â· Dmitry Kazakov Â· ×××××¨× ×§××§××</strong><br>
+  <span data-lang="ru">ÐÑÐ¸ÑÐ¾Ð»Ð¾Ð³ Â· ÐÐ·ÑÐ°Ð¸Ð»Ñ</span>
+  <span data-lang="he">×¤×¡×××××× Â· ××©×¨××</span>
+  <span data-lang="en">Psychologist Â· Israel</span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
