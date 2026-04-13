@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dmitriy Kazakov — Online Booking</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #6b8f71;
+      --sage-lt: #a8c5ab;
+      --sage-dk: #4a6950;
+      --cream: #f7f4ef;
+      --warm: #ede8df;
+      --charcoal: #2c2c2c;
+      --mid: #5a5a5a;
+      --light: #8a8a8a;
+      --white: #ffffff;
+      --border: rgba(0, 0, 0, .08);
+      --shadow: rgba(0, 0, 0, .08);
+      --shadow-lg: rgba(0, 0, 0, .12);
+      --radius: 18px;
+      --transition: .3s ease;
+      --danger: #9f4e4e;
+      --danger-bg: #f8e9e9;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(168, 197, 171, .35), transparent 30%),
+        linear-gradient(180deg, #f4f1ea 0%, #ffffff 30%, #f8f5ef 100%);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+    html[lang="he"] { direction: rtl; }
+    html[lang="he"] body { font-family: "Arial Hebrew", Arial, sans-serif; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 5%;
+      background: rgba(247, 244, 239, .92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      color: var(--sage-dk);
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .4px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .back-link {
+      text-decoration: none;
+      color: var(--mid);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    .lang-switcher { display: flex; gap: 6px; }
+    .lang-btn {
+      border: 1.5px solid var(--sage-lt);
+      background: transparent;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: .8rem;
+      cursor: pointer;
+      color: var(--mid);
+      transition: all var(--transition);
+    }
+    .lang-btn.active,
+    .lang-btn:hover {
+      background: var(--sage);
+      color: var(--white);
+      border-color: var(--sage);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5% 72px;
+    }
+    .hero {
+      padding: 64px 0 34px;
+    }
+    .hero-tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(107, 143, 113, .12);
+      color: var(--sage-dk);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 4vw, 3.3rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--sage-dk);
+      max-width: 760px;
+    }
+    .hero p {
+      max-width: 800px;
+      color: var(--mid);
+      font-size: 1.05rem;
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 26px;
+      align-items: start;
+    }
+    .booking-main {
+      display: grid;
+      gap: 24px;
+    }
+    .booking-sidebar {
+      display: grid;
+      gap: 20px;
+      position: sticky;
+      top: 96px;
+    }
+
+    .surface {
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid rgba(107, 143, 113, .12);
+      border-radius: 24px;
+      box-shadow: 0 12px 32px var(--shadow);
+      padding: 30px;
+    }
+    .surface.compact {
+      padding: 24px;
+    }
+    .section-tag {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      color: var(--mid);
+      font-size: .97rem;
+      max-width: 780px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+    .service-card {
+      display: grid;
+      gap: 16px;
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(247, 244, 239, .85), rgba(255, 255, 255, .98));
+      border: 1px solid rgba(107, 143, 113, .14);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px var(--shadow-lg);
+    }
+    .service-card.active {
+      border-color: rgba(74, 105, 80, .5);
+      box-shadow: 0 16px 32px rgba(74, 105, 80, .15);
+    }
+    .service-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .service-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--sage-dk);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .service-card h3 {
+      font-size: 1.16rem;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .service-note {
+      color: var(--light);
+      font-size: .9rem;
+    }
+    .selected-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(107, 143, 113, .12);
+      color: var(--sage-dk);
+      font-size: .78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .service-description {
+      color: var(--mid);
+      font-size: .95rem;
+    }
+    .service-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+    .service-list li {
+      padding-inline-start: 18px;
+      position: relative;
+      color: var(--mid);
+      font-size: .92rem;
+    }
+    .service-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--sage);
+      position: absolute;
+      inset-inline-start: 0;
+      top: .7em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    .field label {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, .12);
+      border-radius: 14px;
+      padding: 14px 15px;
+      font: inherit;
+      color: var(--charcoal);
+      background: #fff;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: rgba(74, 105, 80, .55);
+      box-shadow: 0 0 0 4px rgba(107, 143, 113, .12);
+    }
+
+    .policy-box {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(237, 232, 223, .7);
+      border: 1px solid rgba(107, 143, 113, .14);
+    }
+    .policy-box h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--sage-dk);
+    }
+    .policy-box p {
+      color: var(--mid);
+      font-size: .95rem;
+    }
+    .policy-check {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--charcoal);
+      font-size: .92rem;
+    }
+    .policy-check input {
+      margin-top: 4px;
+      inline-size: 18px;
+      block-size: 18px;
+      accent-color: var(--sage-dk);
+      flex: 0 0 auto;
+    }
+    .helper-note {
+      margin-top: 12px;
+      color: var(--light);
+      font-size: .88rem;
+    }
+    .form-actions {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .form-hint {
+      color: var(--mid);
+      font-size: .9rem;
+      max-width: 520px;
+    }
+    .error-message {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--danger-bg);
+      color: var(--danger);
+      font-weight: 700;
+      font-size: .92rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: all var(--transition);
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
+    .btn-primary {
+      background: var(--sage-dk);
+      color: var(--white);
+      padding: 14px 24px;
+    }
+    .btn-primary:hover {
+      background: var(--sage);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: rgba(107, 143, 113, .1);
+      color: var(--sage-dk);
+      padding: 12px 18px;
+    }
+    .btn-secondary:hover {
+      background: rgba(107, 143, 113, .16);
+    }
+
+    .summary-card h3,
+    .mini-card h3 {
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: var(--sage-dk);
+    }
+    .summary-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, .06);
+      font-size: .92rem;
+      align-items: start;
+    }
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .summary-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .mini-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .mini-list li {
+      padding-inline-start: 18px;
+      position: relative;
+      color: var(--mid);
+      font-size: .93rem;
+    }
+    .mini-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--sage);
+      position: absolute;
+      inset-inline-start: 0;
+      top: .72em;
+    }
+
+    .connector-message {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(107, 143, 113, .08);
+      border: 1px solid rgba(107, 143, 113, .18);
+    }
+    .connector-message strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--sage-dk);
+    }
+    .connector-message p {
+      color: var(--mid);
+      font-size: .95rem;
+    }
+    .connector-message.pending {
+      background: rgba(237, 232, 223, .8);
+    }
+
+    .booking-embed {
+      margin-top: 20px;
+      min-height: 120px;
+    }
+    .booking-frame {
+      width: 100%;
+      min-height: 860px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      border-radius: 20px;
+      background: #fff;
+    }
+    .booking-frame-calendly {
+      min-height: 860px;
+    }
+
+    @media (max-width: 980px) {
+      .booking-layout {
+        grid-template-columns: 1fr;
+      }
+      .booking-sidebar {
+        position: static;
+      }
+      .service-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .surface {
+        padding: 24px;
+      }
+      .summary-row {
+        grid-template-columns: 1fr;
+      }
+      .booking-frame {
+        min-height: 920px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="dmitry-kazakov.html">D. Kazakov</a>
+    <div class="nav-actions">
+      <a class="back-link" href="dmitry-kazakov.html" data-i18n="backToSite">Back to Website</a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang-code="ru" type="button">РУ</button>
+        <button class="lang-btn" data-lang-code="he" type="button">עב</button>
+        <button class="lang-btn" data-lang-code="en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <p class="hero-tag" data-i18n="heroTag">Booking</p>
+      <h1 data-i18n="pageTitle">Online Booking & Payment</h1>
+      <p data-i18n="pageIntro">
+        Complete a short intake form, choose the service you need, and continue to a secure online booking step.
+      </p>
+    </section>
+
+    <section class="booking-layout">
+      <div class="booking-main">
+        <article class="surface">
+          <p class="section-tag" data-i18n="flowTag">Step 1</p>
+          <h2 class="section-title" data-i18n="flowTitle">Choose a service and complete the required form</h2>
+          <p class="section-sub" data-i18n="flowSub">
+            This page is already prepared for the booking integration.
+          </p>
+          <div id="serviceCards" class="service-grid"></div>
+        </article>
+
+        <article class="surface">
+          <p class="section-tag" data-i18n="formTag">Step 2</p>
+          <h2 class="section-title" data-i18n="formTitle">Required intake form before booking</h2>
+          <p class="section-sub" data-i18n="formSub">
+            Without these details, the payment and booking step does not open.
+          </p>
+
+          <form id="intakeForm" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="fullName" data-i18n="fullName">Full name</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" data-placeholder-key="placeholderFullName" />
+              </div>
+              <div class="field">
+                <label for="email" data-i18n="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" data-placeholder-key="placeholderEmail" />
+              </div>
+              <div class="field">
+                <label for="phone" data-i18n="phone">Phone / WhatsApp</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" data-placeholder-key="placeholderPhone" />
+              </div>
+              <div class="field">
+                <label for="sessionLanguage" data-i18n="language">Session language</label>
+                <select id="sessionLanguage" name="sessionLanguage"></select>
+              </div>
+              <div class="field">
+                <label for="birthDate" data-i18n="birthDate">Date of birth</label>
+                <input id="birthDate" name="birthDate" type="date" />
+              </div>
+              <div class="field full">
+                <label for="reason" data-i18n="reason">Reason for consultation</label>
+                <textarea id="reason" name="reason" data-placeholder-key="placeholderReason"></textarea>
+              </div>
+            </div>
+
+            <div class="policy-box">
+              <h3 data-i18n="policyTitle">Cancellation Policy</h3>
+              <p id="policyText"></p>
+              <label class="policy-check" for="policyAccepted">
+                <input id="policyAccepted" name="policyAccepted" type="checkbox" />
+                <span id="policyCheckboxText"></span>
+              </label>
+              <p class="helper-note" data-i18n="adultRule">Booking is available only for clients aged 18 or older.</p>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn-primary" type="submit" data-i18n="submit">Continue to Booking</button>
+              <p class="form-hint" data-i18n="paymentHint">
+                Once the real accounts are connected, online payment, live availability, and automatic emails will appear here.
+              </p>
+            </div>
+
+            <p id="formError" class="error-message" hidden></p>
+          </form>
+        </article>
+
+        <article class="surface" id="connectorSection" hidden>
+          <p class="section-tag" data-i18n="connectorTag">Step 3</p>
+          <h2 class="section-title" data-i18n="connectorTitle">Booking Platform</h2>
+          <p class="section-sub" data-i18n="connectorLead">
+            Once the form is completed, the embedded booking system for the selected service will open below.
+          </p>
+          <div id="connectorNotice" class="connector-message"></div>
+          <div id="bookingEmbed" class="booking-embed"></div>
+        </article>
+      </div>
+
+      <aside class="booking-sidebar">
+        <article class="surface compact summary-card" id="summaryBox"></article>
+
+        <article class="surface compact mini-card">
+          <h3 data-i18n="summaryTitle">Booking Rules</h3>
+          <ul id="rulesList" class="mini-list"></ul>
+        </article>
+
+        <article class="surface compact mini-card">
+          <h3 data-i18n="automationTitle">What the client receives</h3>
+          <ul id="automationList" class="mini-list"></ul>
+        </article>
+
+        <article class="surface compact mini-card">
+          <h3 data-i18n="statusTitle">Integration Status</h3>
+          <p id="statusBody"></p>
+          <p id="contactFallback" style="margin-top:14px; color:var(--mid); font-size:.92rem;"></p>
+          <a href="dmitry-kazakov.html" class="btn-secondary" style="margin-top:18px;" data-i18n="backToSite">Back to Website</a>
+        </article>
+      </aside>
+    </section>
+  </main>
+
+  <script src="booking-config.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>
