@@ -79,9 +79,11 @@
       connectorPendingBody:
         "Зона бронирования уже подключена к конфигурации сайта, но реальные аккаунты платформы еще не добавлены. После внесения ссылок и ключей здесь появятся свободные слоты, оплата и подтверждение.",
       connectorLiveSingle:
-        "Выберите свободное время, оплатите запись и получите автоматическое подтверждение на email.",
+        "Выберите удобное время в календаре ниже. После подтверждения брони вам будут отправлены реквизиты для оплаты через Bit.",
       connectorLivePackage:
-        "Оплатите пакет онлайн. После покупки оставшиеся встречи будут согласованы отдельно в ручном сопровождении специалиста.",
+        "Выберите время первой сессии в календаре ниже. После подтверждения брони вам будут отправлены реквизиты для оплаты пакета через Bit.",
+      bitNoticeTitle: "Оплата через Bit",
+      bitNoticeBody: "После выбора времени вы получите сообщение с реквизитами для оплаты через Bit. Бронь подтверждается после получения оплаты.",
       openExternal: "Открыть внешнюю страницу бронирования",
       summaryTitle: "Параметры записи",
       summaryRules: [
@@ -199,9 +201,11 @@
       connectorPendingBody:
         "אזור ההזמנה כבר מחובר להגדרות האתר, אבל חשבונות המערכת האמיתיים עדיין לא נוספו. לאחר הוספת הקישורים והחיבורים, כאן יופיעו שעות פנויות, תשלום ואישור.",
       connectorLiveSingle:
-        "בחרו שעה פנויה, השלימו תשלום וקבלו אישור אוטומטי לאימייל.",
+        "בחרו שעה פנויה בלוח השנה למטה. לאחר אישור ההזמנה יישלחו אליכם פרטי התשלום דרך Bit.",
       connectorLivePackage:
-        "שלמו על החבילה אונליין. לאחר הרכישה, יתר הפגישות יתואמו בנפרד מול המטפל.",
+        "בחרו שעה לפגישה הראשונה בלוח השנה למטה. לאחר האישור יישלחו פרטי התשלום לחבילה דרך Bit.",
+      bitNoticeTitle: "תשלום דרך Bit",
+      bitNoticeBody: "לאחר בחירת השעה תקבלו הודעה עם פרטי התשלום דרך Bit. ההזמנה מאושרת לאחר קבלת התשלום.",
       openExternal: "פתיחת עמוד ההזמנה החיצוני",
       summaryTitle: "כללי ההזמנה",
       summaryRules: [
@@ -320,9 +324,11 @@
       connectorPendingBody:
         "This booking area is already connected to the website configuration, but the real provider accounts have not been added yet. As soon as the live URLs and credentials are inserted, available slots, payments, and confirmations will appear here.",
       connectorLiveSingle:
-        "Choose an available time, complete payment, and receive an automatic confirmation email.",
+        "Choose an available time slot in the calendar below. After confirming your booking, payment details via Bit will be sent to you.",
       connectorLivePackage:
-        "Pay for the package online. After purchase, the remaining sessions will be coordinated separately with the practitioner.",
+        "Choose a time for your first session in the calendar below. After confirmation, package payment details via Bit will be sent to you.",
+      bitNoticeTitle: "Payment via Bit",
+      bitNoticeBody: "After selecting your time slot, you will receive a message with Bit payment details. Your booking is confirmed once payment is received.",
       openExternal: "Open external booking page",
       summaryTitle: "Booking Rules",
       summaryRules: [
@@ -705,9 +711,17 @@
 
     refs.connectorSection.hidden = false;
     refs.connectorNotice.className = "connector-message";
+    const t = ui[state.lang];
     refs.connectorNotice.innerHTML = `
-      <strong>${escapeHtml(ui[state.lang].connectorTitle)}</strong>
+      <strong>${escapeHtml(t.connectorTitle)}</strong>
       <p>${escapeHtml(connectorMessageForService(serviceKey))}</p>
+      <div style="margin-top:14px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.7);border:1.5px solid rgba(74,105,80,.25);display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:1.5rem;line-height:1;">💳</span>
+        <div>
+          <strong style="display:block;margin-bottom:4px;color:#4a6950;">${escapeHtml(t.bitNoticeTitle)}</strong>
+          <span style="font-size:.92rem;color:#5a5a5a;">${escapeHtml(t.bitNoticeBody)}</span>
+        </div>
+      </div>
     `;
 
     refs.bookingEmbed.innerHTML = "";
