@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dmitriy Kazakov — Online Booking</title>
+  <link rel="icon" type="image/png" href="favicon-d.png" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -35,6 +36,10 @@
     }
     html[lang="he"] { direction: rtl; }
     html[lang="he"] body { font-family: "Arial Hebrew", Arial, sans-serif; }
+    [data-lang] { display: none; }
+    html[lang="ru"] [data-lang="ru"],
+    html[lang="he"] [data-lang="he"],
+    html[lang="en"] [data-lang="en"] { display: inherit; }
 
     nav {
       position: sticky;
@@ -84,6 +89,33 @@
       background: var(--sage);
       color: var(--white);
       border-color: var(--sage);
+    }
+    .whatsapp-help {
+      position: fixed;
+      inset-inline-end: 18px;
+      bottom: 18px;
+      z-index: 90;
+      width: 58px;
+      height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid rgba(37, 211, 102, .24);
+      text-decoration: none;
+      box-shadow: 0 16px 32px rgba(41, 61, 45, .18);
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .whatsapp-help:hover {
+      background: #f4fbf7;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 20px 38px rgba(37, 211, 102, .34);
+    }
+    .whatsapp-help img {
+      width: 28px;
+      height: 28px;
+      display: block;
     }
 
     .page {
@@ -146,6 +178,10 @@
     .surface.compact {
       padding: 24px;
     }
+    #formSection,
+    #connectorSection {
+      scroll-margin-top: 104px;
+    }
     .section-tag {
       font-size: .8rem;
       font-weight: 700;
@@ -172,6 +208,7 @@
       margin-top: 26px;
     }
     .service-card {
+      position: relative;
       display: grid;
       gap: 16px;
       padding: 22px;
@@ -185,8 +222,18 @@
       box-shadow: 0 12px 28px var(--shadow-lg);
     }
     .service-card.active {
-      border-color: rgba(74, 105, 80, .5);
-      box-shadow: 0 16px 32px rgba(74, 105, 80, .15);
+      border-color: var(--sage-dk);
+      background: linear-gradient(180deg, rgba(231, 239, 233, .98), rgba(255, 255, 255, 1));
+      box-shadow: 0 20px 42px rgba(74, 105, 80, .22);
+      transform: translateY(-4px);
+    }
+    .service-card.active::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      box-shadow: 0 0 0 3px rgba(74, 105, 80, .18);
+      pointer-events: none;
     }
     .service-card-head {
       display: flex;
@@ -215,11 +262,12 @@
       align-items: center;
       padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(107, 143, 113, .12);
-      color: var(--sage-dk);
+      background: var(--sage-dk);
+      color: var(--white);
       font-size: .78rem;
       font-weight: 800;
       white-space: nowrap;
+      box-shadow: 0 10px 20px rgba(74, 105, 80, .22);
     }
     .service-description {
       color: var(--mid);
@@ -378,12 +426,61 @@
     .btn-secondary:hover {
       background: rgba(107, 143, 113, .16);
     }
+    .service-select {
+      width: 100%;
+      padding: 15px 20px;
+      background: var(--sage-dk);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(74, 105, 80, .16);
+    }
+    .service-select:hover {
+      background: #39523e;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px rgba(57, 82, 62, .24);
+    }
+    .service-card.active .service-select {
+      background: #2f4635;
+      box-shadow: 0 18px 30px rgba(47, 70, 53, .28);
+    }
 
     .summary-card h3,
     .mini-card h3 {
       font-size: 1rem;
       margin-bottom: 14px;
       color: var(--sage-dk);
+    }
+    .accordion-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--sage-dk);
+      font: inherit;
+      font-weight: 800;
+      text-align: start;
+      cursor: pointer;
+    }
+    .accordion-toggle h3 {
+      margin-bottom: 0;
+    }
+    .accordion-icon {
+      flex: 0 0 auto;
+      font-size: .92rem;
+      line-height: 1;
+      transition: transform var(--transition), color var(--transition);
+    }
+    .accordion-toggle[aria-expanded="true"] .accordion-icon {
+      transform: rotate(90deg);
+      color: var(--sage-dk);
+    }
+    .accordion-panel[hidden] {
+      display: none !important;
+    }
+    .accordion-panel {
+      margin-top: 16px;
     }
     .summary-row {
       display: grid;
@@ -490,6 +587,16 @@
       .booking-frame {
         min-height: 920px;
       }
+      .whatsapp-help {
+        inset-inline-end: 12px;
+        bottom: 12px;
+        width: 52px;
+        height: 52px;
+      }
+      .whatsapp-help img {
+        width: 25px;
+        height: 25px;
+      }
     }
   </style>
 </head>
@@ -520,13 +627,10 @@
         <article class="surface">
           <p class="section-tag" data-i18n="flowTag">Step 1</p>
           <h2 class="section-title" data-i18n="flowTitle">Choose a service and complete the required form</h2>
-          <p class="section-sub" data-i18n="flowSub">
-            This page is already prepared for the booking integration.
-          </p>
           <div id="serviceCards" class="service-grid"></div>
         </article>
 
-        <article class="surface">
+        <article class="surface" id="formSection">
           <p class="section-tag" data-i18n="formTag">Step 2</p>
           <h2 class="section-title" data-i18n="formTitle">Required intake form before booking</h2>
           <p class="section-sub" data-i18n="formSub">
@@ -585,9 +689,6 @@
         <article class="surface" id="connectorSection" hidden>
           <p class="section-tag" data-i18n="connectorTag">Step 3</p>
           <h2 class="section-title" data-i18n="connectorTitle">Booking Platform</h2>
-          <p class="section-sub" data-i18n="connectorLead">
-            Once the form is completed, the embedded booking system for the selected service will open below.
-          </p>
           <div id="connectorNotice" class="connector-message"></div>
           <div id="bookingEmbed" class="booking-embed"></div>
         </article>
@@ -597,24 +698,32 @@
         <article class="surface compact summary-card" id="summaryBox"></article>
 
         <article class="surface compact mini-card">
-          <h3 data-i18n="summaryTitle">Booking Rules</h3>
-          <ul id="rulesList" class="mini-list"></ul>
+          <button class="accordion-toggle" type="button" data-accordion-toggle aria-expanded="false" aria-controls="rulesPanel">
+            <span class="accordion-icon" aria-hidden="true">▶</span>
+            <h3 data-i18n="summaryTitle">Booking Rules</h3>
+          </button>
+          <div id="rulesPanel" class="accordion-panel" hidden>
+            <ul id="rulesList" class="mini-list"></ul>
+          </div>
         </article>
 
         <article class="surface compact mini-card">
-          <h3 data-i18n="automationTitle">What the client receives</h3>
-          <ul id="automationList" class="mini-list"></ul>
+          <button class="accordion-toggle" type="button" data-accordion-toggle aria-expanded="false" aria-controls="automationPanel">
+            <span class="accordion-icon" aria-hidden="true">▶</span>
+            <h3 data-i18n="automationTitle">What the client receives</h3>
+          </button>
+          <div id="automationPanel" class="accordion-panel" hidden>
+            <ul id="automationList" class="mini-list"></ul>
+          </div>
         </article>
 
-        <article class="surface compact mini-card">
-          <h3 data-i18n="statusTitle">Integration Status</h3>
-          <p id="statusBody"></p>
-          <p id="contactFallback" style="margin-top:14px; color:var(--mid); font-size:.92rem;"></p>
-          <a href="dmitry-kazakov.html" class="btn-secondary" style="margin-top:18px;" data-i18n="backToSite">Back to Website</a>
-        </article>
       </aside>
     </section>
   </main>
+
+  <a class="whatsapp-help" href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <img src="whatsapp-official-icon.svg" alt="" aria-hidden="true">
+  </a>
 
   <script src="booking-config.js"></script>
   <script src="booking.js"></script>

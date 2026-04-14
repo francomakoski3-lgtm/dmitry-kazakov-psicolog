@@ -36,12 +36,12 @@ window.BOOKING_CONFIG = {
       widgetMode: "iframe",
       publicBookingUrl: "https://httpsdimatherapyonlinecom.simplybook.it",
       widgetUrls: {
-        single: "https://httpsdimatherapyonlinecom.simplybook.it/v2/",
-        package: "https://httpsdimatherapyonlinecom.simplybook.it/v2/"
+        single: "https://httpsdimatherapyonlinecom.simplybook.it/v2#book/service/2/",
+        package: "https://httpsdimatherapyonlinecom.simplybook.it"
       },
       fallbackUrls: {
-        single: "https://httpsdimatherapyonlinecom.simplybook.it/v2/",
-        package: "https://httpsdimatherapyonlinecom.simplybook.it/v2/"
+        single: "https://httpsdimatherapyonlinecom.simplybook.it",
+        package: "https://httpsdimatherapyonlinecom.simplybook.it"
       }
     },
     calendly: {

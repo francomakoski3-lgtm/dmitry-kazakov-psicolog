@@ -3,6 +3,7 @@
   const storageKey = "dmitrySiteLang";
   const leadStorageKey = "dmitryBookingLead";
   const defaultLang = "ru";
+  const requestedService = new URLSearchParams(window.location.search).get("service");
 
   const ui = {
     ru: {
@@ -12,8 +13,6 @@
       heroTag: "Booking",
       flowTag: "Шаг 1",
       flowTitle: "Выберите услугу и заполните форму",
-      flowSub:
-        "Эта страница уже подготовлена под интеграцию бронирования. Форма ниже собирает обязательные данные до оплаты и подтверждения записи.",
       services: {
         single: {
           name: "Индивидуальная сессия",
@@ -73,15 +72,9 @@
         "После активации аккаунтов здесь откроются онлайн-оплата, выбор времени и автоматические письма.",
       connectorTag: "Шаг 3",
       connectorTitle: "Система бронирования",
-      connectorLead:
-        "После заполнения формы ниже откроется встроенная платформа бронирования для выбранной услуги.",
       connectorPendingTitle: "Интеграция в режиме подготовки",
       connectorPendingBody:
         "Зона бронирования уже подключена к конфигурации сайта, но реальные аккаунты платформы еще не добавлены. После внесения ссылок и ключей здесь появятся свободные слоты, оплата и подтверждение.",
-      connectorLiveSingle:
-        "Выберите удобное время в календаре ниже. После подтверждения брони вам будут отправлены реквизиты для оплаты через Bit.",
-      connectorLivePackage:
-        "Выберите время первой сессии в календаре ниже. После подтверждения брони вам будут отправлены реквизиты для оплаты пакета через Bit.",
       bitNoticeTitle: "Оплата через Bit",
       bitNoticeBody: "После выбора времени вы получите сообщение с реквизитами для оплаты через Bit. Бронь подтверждается после получения оплаты.",
       openExternal: "Открыть внешнюю страницу бронирования",
@@ -101,14 +94,7 @@
         "Напоминание за 1 час",
         "Автоматическая ссылка на видеовстречу"
       ],
-      statusTitle: "Статус интеграции",
-      statusReady:
-        "Страница уже подготовлена под SimplyBook как основную интеграцию и под Calendly как запасной вариант.",
-      statusPending:
-        "Пока что не хватает реальных учетных записей и платежных данных. После их добавления ничего переписывать не придется.",
       backToSite: "Вернуться на сайт",
-      contactFallback:
-        "Если хотите сохранить текущий способ связи, вы все равно можете вернуться на основной сайт и написать напрямую.",
       validation: {
         selectService: "Сначала выберите услугу.",
         fullName: "Введите имя и фамилию.",
@@ -135,8 +121,6 @@
       heroTag: "Booking",
       flowTag: "שלב 1",
       flowTitle: "בחירת שירות ומילוי טופס חובה",
-      flowSub:
-        "העמוד כבר מוכן לשילוב מערכת הזמנות. הטופס שלמטה אוסף את כל המידע המחויב לפני תשלום ואישור ההזמנה.",
       services: {
         single: {
           name: "פגישה אישית",
@@ -195,15 +179,9 @@
         "לאחר חיבור החשבונות, כאן יופיעו התשלום המקוון, בחירת השעה והאימיילים האוטומטיים.",
       connectorTag: "שלב 3",
       connectorTitle: "מערכת ההזמנות",
-      connectorLead:
-        "לאחר מילוי הטופס תיפתח כאן מערכת ההזמנות המוטמעת עבור השירות שבחרתם.",
       connectorPendingTitle: "האינטגרציה עדיין במצב הכנה",
       connectorPendingBody:
         "אזור ההזמנה כבר מחובר להגדרות האתר, אבל חשבונות המערכת האמיתיים עדיין לא נוספו. לאחר הוספת הקישורים והחיבורים, כאן יופיעו שעות פנויות, תשלום ואישור.",
-      connectorLiveSingle:
-        "בחרו שעה פנויה בלוח השנה למטה. לאחר אישור ההזמנה יישלחו אליכם פרטי התשלום דרך Bit.",
-      connectorLivePackage:
-        "בחרו שעה לפגישה הראשונה בלוח השנה למטה. לאחר האישור יישלחו פרטי התשלום לחבילה דרך Bit.",
       bitNoticeTitle: "תשלום דרך Bit",
       bitNoticeBody: "לאחר בחירת השעה תקבלו הודעה עם פרטי התשלום דרך Bit. ההזמנה מאושרת לאחר קבלת התשלום.",
       openExternal: "פתיחת עמוד ההזמנה החיצוני",
@@ -223,14 +201,7 @@
         "תזכורת שעה לפני",
         "קישור אוטומטי לפגישת הווידאו"
       ],
-      statusTitle: "מצב האינטגרציה",
-      statusReady:
-        "העמוד כבר הוכן לשילוב SimplyBook כהטמעה ראשית ו-Calendly כחלופה.",
-      statusPending:
-        "עדיין חסרים חשבונות אמיתיים ופרטי תשלום. אחרי חיבורם לא יהיה צורך לבנות מחדש את הזרימה.",
       backToSite: "חזרה לאתר",
-      contactFallback:
-        "אם תרצו לשמור על דרך יצירת הקשר הנוכחית, אפשר לחזור לאתר הראשי ולפנות ישירות.",
       validation: {
         selectService: "יש לבחור קודם שירות.",
         fullName: "יש להזין שם מלא.",
@@ -257,8 +228,6 @@
       heroTag: "Booking",
       flowTag: "Step 1",
       flowTitle: "Choose a service and complete the required form",
-      flowSub:
-        "This page is already prepared for the booking integration. The form below collects the mandatory details before payment and booking confirmation.",
       services: {
         single: {
           name: "Single Session",
@@ -318,15 +287,9 @@
         "Once the real accounts are connected, online payment, live availability, and automatic emails will appear here.",
       connectorTag: "Step 3",
       connectorTitle: "Booking Platform",
-      connectorLead:
-        "Once the form is completed, the embedded booking system for the selected service will open below.",
       connectorPendingTitle: "Integration still in staging mode",
       connectorPendingBody:
         "This booking area is already connected to the website configuration, but the real provider accounts have not been added yet. As soon as the live URLs and credentials are inserted, available slots, payments, and confirmations will appear here.",
-      connectorLiveSingle:
-        "Choose an available time slot in the calendar below. After confirming your booking, payment details via Bit will be sent to you.",
-      connectorLivePackage:
-        "Choose a time for your first session in the calendar below. After confirmation, package payment details via Bit will be sent to you.",
       bitNoticeTitle: "Payment via Bit",
       bitNoticeBody: "After selecting your time slot, you will receive a message with Bit payment details. Your booking is confirmed once payment is received.",
       openExternal: "Open external booking page",
@@ -346,14 +309,7 @@
         "1-hour reminder email",
         "Automatic video-call link"
       ],
-      statusTitle: "Integration Status",
-      statusReady:
-        "This page is already prepared for SimplyBook as the primary integration and Calendly as a fallback option.",
-      statusPending:
-        "Real provider accounts and payment credentials are still missing. Once they are added, the flow can go live without rebuilding the page.",
       backToSite: "Back to Website",
-      contactFallback:
-        "If you want to keep the current contact path for now, you can still return to the main site and reach out directly.",
       validation: {
         selectService: "Please choose a service first.",
         fullName: "Please enter your full name.",
@@ -424,9 +380,10 @@
   }
 
   function serviceFromQuery() {
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get("service");
-    return service === "package" ? "package" : "single";
+    if (requestedService === "single" || requestedService === "package") {
+      return requestedService;
+    }
+    return null;
   }
 
   function getProviderConfig() {
@@ -486,9 +443,6 @@
 
     refs.policyText.textContent = t.policyText;
     refs.policyCheckboxText.textContent = t.policyCheckbox;
-    refs.statusBody.textContent = config.bookingEnabled ? t.statusReady : t.statusPending;
-    refs.contactFallback.textContent = t.contactFallback;
-
     renderServiceCards();
     renderStaticLists();
     renderSummaryBox();
@@ -534,7 +488,28 @@
     refs.automationList.innerHTML = t.automations.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   }
 
-  function setSelectedService(serviceKey) {
+  function scrollToForm() {
+    const target = refs.formSection || refs.intakeForm;
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      refs.fullName?.focus({ preventScroll: true });
+    }, 260);
+  }
+
+  function toggleAccordion(button) {
+    const panelId = button.getAttribute("aria-controls");
+    const panel = panelId ? document.getElementById(panelId) : null;
+    if (!panel) return;
+
+    const shouldOpen = button.getAttribute("aria-expanded") !== "true";
+    button.setAttribute("aria-expanded", String(shouldOpen));
+    panel.hidden = !shouldOpen;
+  }
+
+  function setSelectedService(serviceKey, options = {}) {
+    const { scrollForm = false } = options;
     state.selectedService = serviceKey === "package" ? "package" : "single";
     renderServiceCards();
     const existing = readLeadFromStorage();
@@ -547,6 +522,10 @@
       }
     } else {
       renderSummaryBox();
+    }
+
+    if (scrollForm) {
+      scrollToForm();
     }
   }
 
@@ -596,18 +575,12 @@
       `
       : `
         <div class="summary-row"><strong>${escapeHtml(t.summaryService)}:</strong><span>${escapeHtml(serviceName)}</span></div>
-        <div class="summary-row full"><span>${escapeHtml(ui[state.lang].flowSub)}</span></div>
       `;
 
     refs.summaryBox.innerHTML = `
       <h3>${escapeHtml(t.summaryBoxTitle)}</h3>
       ${content}
     `;
-  }
-
-  function connectorMessageForService(serviceKey) {
-    const t = ui[state.lang];
-    return serviceKey === "package" ? t.connectorLivePackage : t.connectorLiveSingle;
   }
 
   function renderPendingConnector() {
@@ -714,7 +687,6 @@
     const t = ui[state.lang];
     refs.connectorNotice.innerHTML = `
       <strong>${escapeHtml(t.connectorTitle)}</strong>
-      <p>${escapeHtml(connectorMessageForService(serviceKey))}</p>
       <div style="margin-top:14px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.7);border:1.5px solid rgba(74,105,80,.25);display:flex;align-items:flex-start;gap:12px;">
         <span style="font-size:1.5rem;line-height:1;">💳</span>
         <div>
@@ -774,7 +746,7 @@
     refs.reason.value = lead.reason || "";
     refs.birthDate.value = lead.birthDate || "";
     refs.policyCheckbox.checked = Boolean(lead.policyAccepted);
-    if (lead.service) {
+    if (!requestedService && lead.service) {
       state.selectedService = lead.service === "package" ? "package" : "single";
     }
   }
@@ -787,7 +759,11 @@
     refs.serviceCards.addEventListener("click", (event) => {
       const trigger = event.target.closest("[data-service-select]");
       if (!trigger) return;
-      setSelectedService(trigger.dataset.serviceSelect);
+      setSelectedService(trigger.dataset.serviceSelect, { scrollForm: true });
+    });
+
+    document.querySelectorAll("[data-accordion-toggle]").forEach((button) => {
+      button.addEventListener("click", () => toggleAccordion(button));
     });
 
     refs.intakeForm.addEventListener("submit", async (event) => {
@@ -808,9 +784,8 @@
     refs.languageSelect = document.getElementById("sessionLanguage");
     refs.policyText = document.getElementById("policyText");
     refs.policyCheckboxText = document.getElementById("policyCheckboxText");
-    refs.statusBody = document.getElementById("statusBody");
-    refs.contactFallback = document.getElementById("contactFallback");
     refs.serviceCards = document.getElementById("serviceCards");
+    refs.formSection = document.getElementById("formSection");
     refs.intakeForm = document.getElementById("intakeForm");
     refs.fullName = document.getElementById("fullName");
     refs.email = document.getElementById("email");
@@ -829,12 +804,23 @@
 
   function init() {
     cacheRefs();
-    state.selectedService = serviceFromQuery();
+    state.selectedService = serviceFromQuery() || "single";
     refs.birthDate.max = maxBirthDate();
     hydrateForm();
     bindEvents();
     applyLang(state.lang);
     renderSummaryBox();
+    if (requestedService) {
+      const lead = readLeadFromStorage();
+      if (lead) {
+        lead.service = state.selectedService;
+        writeLeadToStorage(lead);
+        renderSummaryBox(lead);
+      }
+      window.setTimeout(() => {
+        scrollToForm();
+      }, 120);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", init);
