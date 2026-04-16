@@ -615,117 +615,45 @@
 
   <main class="page">
     <section class="hero">
-      <p class="hero-tag" data-i18n="heroTag">Booking</p>
-      <h1 data-i18n="pageTitle">Online Booking & Payment</h1>
-      <p data-i18n="pageIntro">
-        Complete a short intake form, choose the service you need, and continue to a secure online booking step.
-      </p>
+      <p class="hero-tag">Booking</p>
+      <h1 id="heroTitle">Записаться на сессию</h1>
+      <p id="heroIntro">Выберите удобное время — подтверждение и ссылка на встречу придут автоматически на email.</p>
     </section>
 
-    <section class="booking-layout">
-      <div class="booking-main">
-        <article class="surface">
-          <p class="section-tag" data-i18n="flowTag">Step 1</p>
-          <h2 class="section-title" data-i18n="flowTitle">Choose a service and complete the required form</h2>
-          <div id="serviceCards" class="service-grid"></div>
-        </article>
-
-        <article class="surface" id="formSection">
-          <p class="section-tag" data-i18n="formTag">Step 2</p>
-          <h2 class="section-title" data-i18n="formTitle">Required intake form before booking</h2>
-          <p class="section-sub" data-i18n="formSub">
-            Without these details, the payment and booking step does not open.
-          </p>
-
-          <form id="intakeForm" novalidate>
-            <div class="form-grid">
-              <div class="field">
-                <label for="fullName" data-i18n="fullName">Full name</label>
-                <input id="fullName" name="fullName" type="text" autocomplete="name" data-placeholder-key="placeholderFullName" />
-              </div>
-              <div class="field">
-                <label for="email" data-i18n="email">Email</label>
-                <input id="email" name="email" type="email" autocomplete="email" data-placeholder-key="placeholderEmail" />
-              </div>
-              <div class="field">
-                <label for="phone" data-i18n="phone">Phone / WhatsApp</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" data-placeholder-key="placeholderPhone" />
-              </div>
-              <div class="field">
-                <label for="sessionLanguage" data-i18n="language">Session language</label>
-                <select id="sessionLanguage" name="sessionLanguage"></select>
-              </div>
-              <div class="field">
-                <label for="birthDate" data-i18n="birthDate">Date of birth</label>
-                <input id="birthDate" name="birthDate" type="date" />
-              </div>
-              <div class="field full">
-                <label for="reason" data-i18n="reason">Reason for consultation</label>
-                <textarea id="reason" name="reason" data-placeholder-key="placeholderReason"></textarea>
-              </div>
-            </div>
-
-            <div class="policy-box">
-              <h3 data-i18n="policyTitle">Cancellation Policy</h3>
-              <p id="policyText"></p>
-              <label class="policy-check" for="policyAccepted">
-                <input id="policyAccepted" name="policyAccepted" type="checkbox" />
-                <span id="policyCheckboxText"></span>
-              </label>
-              <p class="helper-note" data-i18n="adultRule">Booking is available only for clients aged 18 or older.</p>
-            </div>
-
-            <div class="form-actions">
-              <button class="btn-primary" type="submit" data-i18n="submit">Continue to Booking</button>
-              <p class="form-hint" data-i18n="paymentHint">
-                Once the real accounts are connected, online payment, live availability, and automatic emails will appear here.
-              </p>
-            </div>
-
-            <p id="formError" class="error-message" hidden></p>
-          </form>
-        </article>
-
-        <article class="surface" id="connectorSection" hidden>
-          <p class="section-tag" data-i18n="connectorTag">Step 3</p>
-          <h2 class="section-title" data-i18n="connectorTitle">Booking Platform</h2>
-          <div id="connectorNotice" class="connector-message"></div>
-          <div id="bookingEmbed" class="booking-embed"></div>
-        </article>
+    <div class="surface" style="padding: 10px; overflow: hidden;">
+      <!-- Calendly inline widget -->
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/dima-dimatherapyonline/30min"
+        style="min-width:320px; height:700px;">
       </div>
-
-      <aside class="booking-sidebar">
-        <article class="surface compact summary-card" id="summaryBox"></article>
-
-        <article class="surface compact mini-card">
-          <button class="accordion-toggle" type="button" data-accordion-toggle aria-expanded="false" aria-controls="rulesPanel">
-            <span class="accordion-icon" aria-hidden="true">▶</span>
-            <h3 data-i18n="summaryTitle">Booking Rules</h3>
-          </button>
-          <div id="rulesPanel" class="accordion-panel" hidden>
-            <ul id="rulesList" class="mini-list"></ul>
-          </div>
-        </article>
-
-        <article class="surface compact mini-card">
-          <button class="accordion-toggle" type="button" data-accordion-toggle aria-expanded="false" aria-controls="automationPanel">
-            <span class="accordion-icon" aria-hidden="true">▶</span>
-            <h3 data-i18n="automationTitle">What the client receives</h3>
-          </button>
-          <div id="automationPanel" class="accordion-panel" hidden>
-            <ul id="automationList" class="mini-list"></ul>
-          </div>
-        </article>
-
-      </aside>
-    </section>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
   </main>
 
   <a class="whatsapp-help" href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <img src="whatsapp-official-icon.svg" alt="" aria-hidden="true">
   </a>
 
-  <script src="booking-config.js"></script>
-  <script src="booking.js"></script>
+  <script>
+    // Simple lang switcher for title/intro
+    const heroTexts = {
+      ru: { title: "Записаться на сессию", intro: "Выберите удобное время — подтверждение и ссылка на встречу придут автоматически на email." },
+      he: { title: "לתאום פגישה", intro: "בחרו זמן נוח — אישור וקישור לפגישה יישלחו אוטומטית למייל." },
+      en: { title: "Book a Session", intro: "Choose a convenient time — confirmation and meeting link will be sent automatically to your email." }
+    };
+    const storageKey = "dmitrySiteLang";
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "he" ? "rtl" : "ltr";
+      document.querySelectorAll(".lang-btn").forEach(b => b.classList.toggle("active", b.dataset.langCode === lang));
+      const t = heroTexts[lang] || heroTexts.ru;
+      document.getElementById("heroTitle").textContent = t.title;
+      document.getElementById("heroIntro").textContent = t.intro;
+      localStorage.setItem(storageKey, lang);
+    }
+    document.querySelectorAll(".lang-btn").forEach(b => b.addEventListener("click", () => applyLang(b.dataset.langCode)));
+    applyLang(localStorage.getItem(storageKey) || "ru");
+  </script>
 </body>
 </html>
