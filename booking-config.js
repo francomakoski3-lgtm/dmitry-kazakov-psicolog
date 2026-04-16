@@ -1,7 +1,7 @@
 window.BOOKING_CONFIG = {
   siteName: "Dmitriy Kazakov",
-  recommendedProvider: "simplybook",
-  activeProvider: "simplybook",
+  recommendedProvider: "calendly",
+  activeProvider: "calendly",
   bookingEnabled: true,
   updatedAt: "2026-04-14",
   constraints: {
@@ -47,8 +47,8 @@ window.BOOKING_CONFIG = {
     calendly: {
       scriptUrl: "https://assets.calendly.com/assets/external/widget.js",
       eventUrls: {
-        single: "",
-        package: ""
+        single: "https://calendly.com/dima-dimatherapyonline/30min",
+        package: "https://calendly.com/dima-dimatherapyonline/30min"
       },
       prefillCustomAnswerMap: {
         phone: "a1",
