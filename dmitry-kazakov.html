@@ -425,10 +425,26 @@
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       .about-grid { grid-template-columns: 1fr; }
-      .hero-image { display: none; }
       .nav-links { display: none; }
       .steps { gap: 16px; }
       .step { min-width: 140px; }
+
+      /* Hero: stack vertically, photo below text */
+      .hero-inner {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text {
+        order: 1;
+        text-align: center;
+      }
+      .hero-image {
+        order: 2;
+        flex: 0 0 auto;
+        width: 220px;
+        height: 260px;
+        margin-top: 28px;
+      }
     }
   </style>
 </head>
