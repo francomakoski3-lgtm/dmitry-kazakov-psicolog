@@ -623,28 +623,12 @@
     <div class="surface" style="padding: 10px; overflow: hidden;">
       <!-- Calendly inline widget -->
       <div
-        id="calendly-widget"
         class="calendly-inline-widget"
         data-url="https://calendly.com/dima-dimatherapyonline/30min"
-        style="min-width:320px; height:700px;">
+        style="min-width:320px; height:1500px;">
       </div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
-
-    <script>
-      // Auto-resize: Calendly sends its internal page height via postMessage
-      window.addEventListener('message', function(e) {
-        if (e.origin !== 'https://calendly.com') return;
-        var data = e.data;
-        if (data && data.event === 'calendly.page_height') {
-          var height = data.payload && data.payload.height;
-          if (height && height > 0) {
-            var widget = document.getElementById('calendly-widget');
-            if (widget) widget.style.height = height + 'px';
-          }
-        }
-      });
-    </script>
   </main>
 
   <a class="whatsapp-help" href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
