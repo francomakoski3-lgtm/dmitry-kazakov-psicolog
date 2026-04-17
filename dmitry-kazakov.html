@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Дмитрий Казаков — Психолог</title>
+  <title>דמיטרי קזקוב — פסיכולוג</title>
   <link rel="icon" type="image/png" href="favicon-d.png" />
+  <!-- SEO: hreflang -->
+  <link rel="alternate" hreflang="he" href="https://dimatherapyonline.com/dmitry-kazakov.html" />
+  <link rel="alternate" hreflang="ru" href="https://dimatherapyonline.com/ru/dmitry-kazakov.html" />
+  <link rel="alternate" hreflang="en" href="https://dimatherapyonline.com/en/dmitry-kazakov.html" />
+  <link rel="alternate" hreflang="x-default" href="https://dimatherapyonline.com/dmitry-kazakov.html" />
+  <link rel="canonical" href="https://dimatherapyonline.com/dmitry-kazakov.html" />
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,22 +29,14 @@
       --transition: .3s ease;
     }
     html { scroll-behavior: smooth; }
+    html[lang="he"] { direction: rtl; }
+    html[lang="he"] body { font-family: 'Arial Hebrew', Arial, sans-serif; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: var(--cream);
       color: var(--charcoal);
       line-height: 1.7;
     }
-
-    /* ===== RTL support for Hebrew ===== */
-    html[lang="he"] { direction: rtl; }
-    html[lang="he"] body { font-family: 'Arial Hebrew', Arial, sans-serif; }
-
-    /* ===== HIDDEN LANGUAGE CONTENT ===== */
-    [data-lang] { display: none; }
-    html[lang="ru"] [data-lang="ru"],
-    html[lang="he"] [data-lang="he"],
-    html[lang="en"] [data-lang="en"] { display: inherit; }
 
     /* ===== NAV ===== */
     nav {
@@ -66,6 +64,7 @@
       background: transparent; border-radius: 6px;
       padding: 4px 10px; font-size: .8rem; cursor: pointer;
       color: var(--mid); transition: all var(--transition);
+      text-decoration: none; display: inline-block;
     }
     .lang-btn.active,
     .lang-btn:hover { background: var(--sage); color: var(--white); border-color: var(--sage); }
@@ -452,42 +451,18 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#hero">
-    <span data-lang="ru">Д. Казаков</span>
-    <span data-lang="he">ד. קזקוב</span>
-    <span data-lang="en">D. Kazakov</span>
-  </a>
+  <a class="nav-logo" href="#hero">ד. קזקוב</a>
   <ul class="nav-links">
-    <li><a href="#about">
-      <span data-lang="ru">Обо мне</span>
-      <span data-lang="he">עליי</span>
-      <span data-lang="en">About</span>
-    </a></li>
-    <li><a href="credentials.html">
-      <span data-lang="ru">Образование</span>
-      <span data-lang="he">הכשרה</span>
-      <span data-lang="en">Credentials</span>
-    </a></li>
-    <li><a href="#psychosomatics">
-      <span data-lang="ru">Психосоматика</span>
-      <span data-lang="he">פסיכוסומטיקה</span>
-      <span data-lang="en">Psychosomatics</span>
-    </a></li>
-    <li><a href="#services">
-      <span data-lang="ru">Услуги</span>
-      <span data-lang="he">שירותים</span>
-      <span data-lang="en">Services</span>
-    </a></li>
-    <li><a href="booking.html">
-      <span data-lang="ru">Записаться</span>
-      <span data-lang="he">לתאום</span>
-      <span data-lang="en">Book</span>
-    </a></li>
+    <li><a href="#about">עליי</a></li>
+    <li><a href="credentials.html">הכשרה</a></li>
+    <li><a href="#psychosomatics">פסיכוסומטיקה</a></li>
+    <li><a href="#services">שירותים</a></li>
+    <li><a href="booking.html">לתאום</a></li>
   </ul>
   <div class="lang-switcher">
-    <button class="lang-btn active" data-lang-code="ru" onclick="setLang('ru')">РУ</button>
-    <button class="lang-btn" data-lang-code="he" onclick="setLang('he')">עב</button>
-    <button class="lang-btn" data-lang-code="en" onclick="setLang('en')">EN</button>
+    <a class="lang-btn active" href="/dmitry-kazakov.html">עב</a>
+    <a class="lang-btn" href="/ru/dmitry-kazakov.html">РУ</a>
+    <a class="lang-btn" href="/en/dmitry-kazakov.html">EN</a>
   </div>
 </nav>
 
@@ -495,57 +470,16 @@
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-tag">
-        <span data-lang="ru">Языки · Русский, иврит</span>
-        <span data-lang="he">שפות · רוסית, עברית</span>
-        <span data-lang="en">Languages · Russian, Hebrew</span>
-      </div>
-      <h1 class="hero-name">
-        <span data-lang="ru">Дмитрий Казаков</span>
-        <span data-lang="he">דמיטרי קזקוב</span>
-        <span data-lang="en">Dmitriy Kazakov</span>
-      </h1>
-      <p class="hero-title">
-        <span data-lang="ru">Психосоматическая консультация · Решение проблемы · Контроль результата</span>
-        <span data-lang="he">ייעוץ פסיכוסומטי · פתרון בעיה · מעקב תוצאה</span>
-        <span data-lang="en">Psychosomatic Counseling · Problem Solving · Result Tracking</span>
-      </p>
-      <div class="hero-callout" data-lang="ru">
-        <div id="hero-callout-ru-summary">
-          <strong>Глубокие изменения в самооценке через онлайн эмоционально-телесную работу</strong>
-          Когда самооценка травмирована, появляются страх, стыд, вина, желание всем угождать<br>
-          и непропорционально сильные эмоциональные реакции.
-          Мы работаем с источником этого паттерна, а не только с его внешними проявлениями.
-        </div>
-        <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-ru-summary" data-target="hero-callout-ru-full">Подробнее</a>
-        <div id="hero-callout-ru-full" class="hero-callout-extra" hidden>
-          <strong>Глубокие изменения в самооценке через онлайн эмоционально-телесную работу</strong>
-          Когда самооценка травмирована, появляются страх, стыд, вина, желание всем угождать<br>
-          и непропорционально сильные эмоциональные реакции.
-          Мы работаем с источником этого паттерна, а не только с его внешними проявлениями.<br><br>
-          Возможно, вам это знакомо:
-          <ul class="hero-callout-list">
-            <li>Вы слишком много думаете перед тем, как что-то сказать</li>
-            <li>Вам трудно ставить границы без чувства вины</li>
-            <li>Критика влияет на вас сильнее, чем хотелось бы</li>
-            <li>Вы чувствуете эмоциональную ответственность за других</li>
-            <li>Иногда вы как будто “теряетесь” внутри других людей</li>
-          </ul>
-          Это не черта характера.<br>
-          Это внутренний паттерн, который можно изменить.
-        </div>
-      </div>
-      <div class="hero-callout" data-lang="he">
+      <div class="hero-tag">שפות · רוסית, עברית</div>
+      <h1 class="hero-name">דמיטרי קזקוב</h1>
+      <p class="hero-title">ייעוץ פסיכוסומטי · פתרון בעיה · מעקב תוצאה</p>
+      <div class="hero-callout">
         <div id="hero-callout-he-summary">
           <strong>שינוי עמוק בביטחון העצמי דרך עבודה רגשית־גופנית אונליין</strong>
           כשביטחון עצמי נפגע — מופיעים פחד, בושה, אשמה, צורך לרצות אחרים ותגובה רגשית לא פרופורציונלית.<br>
           אנחנו עובדים עם המקור של הדפוס, לא רק עם ההתנהגות שלו.
         </div>
-        <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-he-summary" data-target="hero-callout-he-full">
-          <span data-lang="ru">Подробнее</span>
-          <span data-lang="he">קרא עוד</span>
-          <span data-lang="en">Read more</span>
-        </a>
+        <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-he-summary" data-target="hero-callout-he-full">קרא עוד</a>
         <div id="hero-callout-he-full" class="hero-callout-extra" hidden>
           <strong>שינוי עמוק בביטחון העצמי דרך עבודה רגשית־גופנית אונליין</strong>
           כשביטחון עצמי נפגע — מופיעים פחד, בושה, אשמה, צורך לרצות אחרים ותגובה רגשית לא פרופורציונלית.<br>
@@ -556,44 +490,15 @@
             <li>קשה לך לשים גבולות בלי להרגיש רע</li>
             <li>ביקורת משפיעה עליך יותר ממה שהיית רוצה</li>
             <li>אתה מרגיש אחריות רגשית על אחרים</li>
-            <li>לפעמים אתה “נעלם” בתוך אנשים אחרים</li>
+            <li>לפעמים אתה "נעלם" בתוך אנשים אחרים</li>
           </ul>
           זה לא אופי.<br>
           זה דפוס פנימי שניתן לשנות.
         </div>
       </div>
-      <div class="hero-callout" data-lang="en">
-        <div id="hero-callout-en-summary">
-          <strong>Deep change in self-confidence through online emotional-body work</strong>
-          When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
-          and disproportionate emotional reactions begin to appear.
-          We work with the root of the pattern, not only with the behavior it creates.
-        </div>
-        <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-en-summary" data-target="hero-callout-en-full">Read more</a>
-        <div id="hero-callout-en-full" class="hero-callout-extra" hidden>
-          <strong>Deep change in self-confidence through online emotional-body work</strong>
-          When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
-          and disproportionate emotional reactions begin to appear.
-          We work with the root of the pattern, not only with the behavior it creates.<br><br>
-          This may sound familiar:
-          <ul class="hero-callout-list">
-            <li>You overthink before you speak</li>
-            <li>It is hard for you to set boundaries without feeling bad</li>
-            <li>Criticism affects you more than you would like</li>
-            <li>You feel emotionally responsible for other people</li>
-            <li>Sometimes you “disappear” inside other people</li>
-          </ul>
-          This is not your personality.<br>
-          It is an internal pattern that can be changed.
-        </div>
-      </div>
-      <a href="booking.html" class="btn-primary hero-booking-cta">
-        <span data-lang="ru">Записаться онлайн 👈</span>
-        <span data-lang="he">👈קבע פגישה אונליין</span>
-        <span data-lang="en">👉 Book an Online Session</span>
-      </a>
+      <a href="booking.html" class="btn-primary hero-booking-cta">👈קבע פגישה אונליין</a>
     </div>
-    <div class="hero-image" style="background:none; padding:0; overflow:hidden;"><img src="dmitry-photo.png" alt="Дмитрий Казаков" style="width:100%;height:100%;object-fit:cover;border-radius:24px;"/></div>
+    <div class="hero-image" style="background:none; padding:0; overflow:hidden;"><img src="dmitry-photo.png" alt="דמיטרי קזקוב" style="width:100%;height:100%;object-fit:cover;border-radius:24px;"/></div>
   </div>
 </section>
 
@@ -602,99 +507,42 @@
   <div class="section-inner">
     <div class="about-grid">
       <div>
-        <p class="section-tag">
-          <span data-lang="ru">Обо мне</span>
-          <span data-lang="he">עליי</span>
-          <span data-lang="en">About me</span>
-        </p>
-        <h2 class="section-title">
-          <span data-lang="ru">Дмитрий Казаков</span>
-          <span data-lang="he">דמיטרי קזקוב</span>
-          <span data-lang="en">Dmitriy Kazakov</span>
-        </h2>
-        <p class="section-sub">
-          <span data-lang="ru">Сертифицированный специалист по психосоматике с опытом более 8 лет. Работаю с болью, стрессом, тревогой и телесными симптомами, связанными с эмоциональными причинами.</span>
-          <span data-lang="he">מטפל מוסמך בפסיכוסומטיקה, בעל ניסיון של מעל 8 שנים בעבודה עם אנשים הסובלים מכאב, מתח, חרדה ותסמינים גופניים שמקורם רגשי.</span>
-          <span data-lang="en">Certified psychosomatic practitioner with more than 8 years of experience. I work with pain, stress, anxiety, and physical symptoms connected to emotional causes.</span>
-        </p>
+        <p class="section-tag">עליי</p>
+        <h2 class="section-title">דמיטרי קזקוב</h2>
+        <p class="section-sub">מטפל מוסמך בפסיכוסומטיקה, בעל ניסיון של מעל 8 שנים בעבודה עם אנשים הסובלים מכאב, מתח, חרדה ותסמינים גופניים שמקורם רגשי.</p>
       </div>
       <div class="about-values">
         <div class="value-item">
           <div class="value-icon">🛡️</div>
           <div class="value-text">
-            <h4>
-              <span data-lang="ru">Безопасность</span>
-              <span data-lang="he">ביטחון</span>
-              <span data-lang="en">Safety</span>
-            </h4>
-            <p>
-              <span data-lang="ru">Конфиденциальная, безоценочная среда для вашей работы</span>
-              <span data-lang="he">סביבה חסויה ולא שיפוטית לעבודתכם</span>
-              <span data-lang="en">A confidential, non-judgmental environment for your work</span>
-            </p>
+            <h4>ביטחון</h4>
+            <p>סביבה חסויה ולא שיפוטית לעבודתכם</p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">🤝</div>
           <div class="value-text">
-            <h4>
-              <span data-lang="ru">Доверие</span>
-              <span data-lang="he">אמון</span>
-              <span data-lang="en">Trust</span>
-            </h4>
-            <p>
-              <span data-lang="ru">Ваш темп, ваши границы, ваше пространство</span>
-              <span data-lang="he">הקצב שלכם, הגבולות שלכם, המרחב שלכם</span>
-              <span data-lang="en">Your pace, your boundaries, your space</span>
-            </p>
+            <h4>אמון</h4>
+            <p>הקצב שלכם, הגבולות שלכם, המרחב שלכם</p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">🌱</div>
           <div class="value-text">
-            <h4>
-              <span data-lang="ru">Осознанность</span>
-              <span data-lang="he">מודעות</span>
-              <span data-lang="en">Awareness</span>
-            </h4>
-            <p>
-              <span data-lang="ru">Глубокое понимание ваших эмоций и паттернов</span>
-              <span data-lang="he">הבנה עמוקה של רגשותיכם ודפוסיכם</span>
-              <span data-lang="en">Deep understanding of your emotions and patterns</span>
-            </p>
+            <h4>מודעות</h4>
+            <p>הבנה עמוקה של רגשותיכם ודפוסיכם</p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">⏱️</div>
           <div class="value-text">
-            <h4>
-              <span data-lang="ru">Сессии 45–55 минут</span>
-              <span data-lang="he">פגישות 45–55 דקות</span>
-              <span data-lang="en">Sessions 45–55 minutes</span>
-            </h4>
-            <p>
-              <span data-lang="ru">Достаточно времени для глубокой и продуктивной работы</span>
-              <span data-lang="he">מספיק זמן לעבודה עמוקה ופורה</span>
-              <span data-lang="en">Enough time for deep and productive work</span>
-            </p>
+            <h4>פגישות 45–55 דקות</h4>
+            <p>מספיק זמן לעבודה עמוקה ופורה</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="bio-detail" data-lang="ru">
-      <p>За годы практики я сопровождал многих клиентов в глубоких, меняющих жизнь процессах, соединяя классические психологические методы с современными и инновационными подходами в сфере связи тела и психики.</p>
-      <p>Мой подход основан на глубоком понимании того, что тело не существует отдельно от психики, а отражает её состояние. Поэтому вместо работы только с симптомом я сосредотачиваюсь на выявлении корня проблемы и создании реальных, устойчивых изменений.</p>
-      <p>Со временем я разработал собственный метод, который объединяет точную диагностику, осознанную работу и практические инструменты. Это помогает:</p>
-      <ul class="bio-list">
-        <li>быстро выявить источник проблемы</li>
-        <li>освободить глубокие повторяющиеся паттерны</li>
-        <li>значительно снизить боль и симптомы</li>
-        <li>заметить реальные изменения уже на ранних этапах процесса</li>
-      </ul>
-      <p>Я продолжаю учиться, исследовать и развивать новые инструменты, чтобы предлагать своим клиентам наиболее эффективные решения.</p>
-      <p>Опыт, результаты и доверие многих клиентов на протяжении лет — это то, что даёт мне силы продолжать помогать каждый день.</p>
-    </div>
-    <div class="bio-detail" data-lang="he">
+    <div class="bio-detail">
       <p>לאורך השנים ליוויתי מטופלים רבים בתהליכים עמוקים ומשני חיים, תוך שילוב בין שיטות קלאסיות מעולם הפסיכולוגיה לבין גישות מתקדמות וחדשניות בתחום הגוף-נפש.</p>
       <p>הגישה שלי מבוססת על הבנה עמוקה שהגוף אינו פועל בנפרד מהנפש — אלא משקף אותה. לכן, במקום לטפל רק בסימפטום, אני מתמקד בזיהוי שורש הבעיה וביצירת שינוי אמיתי ויציב.</p>
       <p>במהלך השנים פיתחתי שיטה ייחודית משלי, המשלבת אבחון מדויק, עבודה תודעתית וכלים פרקטיים, המאפשרים:</p>
@@ -707,19 +555,6 @@
       <p>אני ממשיך ללמוד, לחקור ולפתח כלים חדשים על מנת להעניק למטופלים שלי את הפתרונות היעילים ביותר.</p>
       <p>הניסיון, התוצאות והאמון של מטופלים רבים לאורך השנים הם מה שנותנים לי את הכוח להמשיך ולעזור — בכל יום.</p>
     </div>
-    <div class="bio-detail" data-lang="en">
-      <p>Over the years, I have accompanied many clients through deep, life-changing processes, combining classical psychology methods with advanced and innovative body-mind approaches.</p>
-      <p>My approach is based on a deep understanding that the body does not function separately from the mind; it reflects it. Instead of treating only the symptom, I focus on identifying the root of the issue and creating real, lasting change.</p>
-      <p>Over time, I developed my own method that combines precise assessment, conscious therapeutic work, and practical tools. This makes it possible to:</p>
-      <ul class="bio-list">
-        <li>quickly uncover the source of the problem</li>
-        <li>release deep recurring patterns</li>
-        <li>significantly reduce pain and symptoms</li>
-        <li>create noticeable change already in the early stages of the process</li>
-      </ul>
-      <p>I continue to study, research, and develop new tools in order to offer my clients the most effective solutions.</p>
-      <p>The experience, results, and trust of many clients over the years are what give me the strength to keep helping every day.</p>
-    </div>
   </div>
 </section>
 
@@ -728,73 +563,25 @@
   <div class="section-inner">
     <div class="credentials-cta">
       <div class="credentials-copy">
-        <p class="section-tag">
-          <span data-lang="ru">Квалификация</span>
-          <span data-lang="he">הכשרה מקצועית</span>
-          <span data-lang="en">Credentials</span>
-        </p>
-        <h2 class="section-title">
-          <span data-lang="ru">Дипломы и сертификаты</span>
-          <span data-lang="he">דיפלומות ותעודות</span>
-          <span data-lang="en">Diplomas & Certificates</span>
-        </h2>
-        <p class="section-sub">
-          <span data-lang="ru">Вся информация о профессиональном обучении и официальных документах вынесена на отдельную страницу, чтобы основная страница оставалась лёгкой и понятной.</span>
-          <span data-lang="he">כל המידע על ההכשרה המקצועית והמסמכים הרשמיים מרוכז בעמוד נפרד, כדי שהעמוד הראשי יישאר נקי, ברור וממוקד.</span>
-          <span data-lang="en">All professional training details and official documents are collected on a separate page so the main website stays clear and focused.</span>
-        </p>
+        <p class="section-tag">הכשרה מקצועית</p>
+        <h2 class="section-title">דיפלומות ותעודות</h2>
+        <p class="section-sub">כל המידע על ההכשרה המקצועית והמסמכים הרשמיים מרוכז בעמוד נפרד, כדי שהעמוד הראשי יישאר נקי, ברור וממוקד.</p>
         <div class="credentials-pills">
-          <span class="credentials-pill">
-            <span data-lang="ru">2 официальных документа</span>
-            <span data-lang="he">2 מסמכים רשמיים</span>
-            <span data-lang="en">2 official documents</span>
-          </span>
-          <span class="credentials-pill">
-            <span data-lang="ru">Сертификат по психосоматике</span>
-            <span data-lang="he">תעודת פסיכוסומטיקה</span>
-            <span data-lang="en">Psychosomatics certificate</span>
-          </span>
-          <span class="credentials-pill">
-            <span data-lang="ru">Повышение квалификации 120 часов</span>
-            <span data-lang="he">השתלמות מקצועית 120 שעות</span>
-            <span data-lang="en">120-hour advanced training</span>
-          </span>
+          <span class="credentials-pill">2 מסמכים רשמיים</span>
+          <span class="credentials-pill">תעודת פסיכוסומטיקה</span>
+          <span class="credentials-pill">השתלמות מקצועית 120 שעות</span>
         </div>
         <div class="credentials-actions">
-          <a href="credentials.html" class="btn-primary">
-            <span data-lang="ru">Посмотреть дипломы</span>
-            <span data-lang="he">לצפייה בתעודות</span>
-            <span data-lang="en">View Credentials</span>
-          </a>
-          <span class="credentials-note">
-            <span data-lang="ru">Отдельная страница с изображениями документов и кратким описанием каждой квалификации.</span>
-            <span data-lang="he">עמוד נפרד עם תמונות של המסמכים והסבר קצר על כל תעודה והסמכה.</span>
-            <span data-lang="en">A separate page with document images and a short explanation of each qualification.</span>
-          </span>
+          <a href="credentials.html" class="btn-primary">לצפייה בתעודות</a>
+          <span class="credentials-note">עמוד נפרד עם תמונות של המסמכים והסבר קצר על כל תעודה והסמכה.</span>
         </div>
       </div>
       <div class="credentials-preview">
-        <h3>
-          <span data-lang="ru">Что будет на странице</span>
-          <span data-lang="he">מה תמצאו בעמוד</span>
-          <span data-lang="en">What You'll Find</span>
-        </h3>
+        <h3>מה תמצאו בעמוד</h3>
         <ul>
-          <li>
-            <span data-lang="ru">Сертификат Национальной ассоциации специалистов по психосоматике</span>
-            <span data-lang="he">תעודת האגודה הלאומית למומחים בפסיכוסומטיקה</span>
-            <span data-lang="en">National Association of Specialists in Psychosomatics certificate</span>
-          </li>
-          <li>
-            <span data-lang="ru">Удостоверение о повышении квалификации на 120 часов</span>
-            <span data-lang="he">תעודת השתלמות מקצועית בהיקף של 120 שעות</span>
-            <span data-lang="en">120-hour advanced training certificate</span>
-          </li>
-          <li>
-            <span data-lang="ru">Краткое описание обучения и опыта</span>
-            <span data-lang="he">תיאור קצר של ההכשרה והניסיון</span>
-            <span data-lang="en">A short summary of training and experience</span>
-          </li>
+          <li>תעודת האגודה הלאומית למומחים בפסיכוסומטיקה</li>
+          <li>תעודת השתלמות מקצועית בהיקף של 120 שעות</li>
+          <li>תיאור קצר של ההכשרה והניסיון</li>
         </ul>
       </div>
     </div>
@@ -804,73 +591,29 @@
 <!-- PSYCHOSOMATICS -->
 <section id="psychosomatics">
   <div class="section-inner">
-    <p class="section-tag">
-      <span data-lang="ru">Специализация</span>
-      <span data-lang="he">התמחות</span>
-      <span data-lang="en">Specialization</span>
-    </p>
-    <h2 class="section-title">
-      <span data-lang="ru">Психосоматика</span>
-      <span data-lang="he">פסיכוסומטיקה</span>
-      <span data-lang="en">Psychosomatics</span>
-    </h2>
-    <p class="section-sub">
-      <span data-lang="ru">Психосоматика — это состояние, при котором психические факторы, такие как стресс или тревога, влияют на тело и вызывают физические симптомы. Когда эмоции подавляются, тело говорит вместо нас.</span>
-      <span data-lang="he">פסיכוסומטיקה היא המצב שבו גורמים נפשיים, כמו סטרס או חרדה, משפיעים על הגוף וגורמים לתסמינים פיזיים. כשרגשות מודחקים, הגוף מדבר במקומנו.</span>
-      <span data-lang="en">Psychosomatics is the condition where mental factors, such as stress or anxiety, affect the body and cause physical symptoms. When emotions are suppressed, the body speaks for us.</span>
-    </p>
+    <p class="section-tag">התמחות</p>
+    <h2 class="section-title">פסיכוסומטיקה</h2>
+    <p class="section-sub">פסיכוסומטיקה היא המצב שבו גורמים נפשיים, כמו סטרס או חרדה, משפיעים על הגוף וגורמים לתסמינים פיזיים. כשרגשות מודחקים, הגוף מדבר במקומנו.</p>
     <div class="psych-grid">
       <div class="psych-card">
         <div class="icon">💫</div>
-        <h3>
-          <span data-lang="ru">Тревога и стресс</span>
-          <span data-lang="he">חרדה וסטרס</span>
-          <span data-lang="en">Anxiety & Stress</span>
-        </h3>
-        <p>
-          <span data-lang="ru">Хронический стресс проявляется в физических симптомах: головная боль, усталость, напряжение в теле</span>
-          <span data-lang="he">סטרס כרוני מתבטא בתסמינים פיזיים: כאב ראש, עייפות, מתח בגוף</span>
-          <span data-lang="en">Chronic stress manifests in physical symptoms: headaches, fatigue, body tension</span>
-        </p>
+        <h3>חרדה וסטרס</h3>
+        <p>סטרס כרוני מתבטא בתסמינים פיזיים: כאב ראש, עייפות, מתח בגוף</p>
       </div>
       <div class="psych-card">
         <div class="icon">💔</div>
-        <h3>
-          <span data-lang="ru">Подавленные эмоции</span>
-          <span data-lang="he">רגשות מודחקים</span>
-          <span data-lang="en">Suppressed Emotions</span>
-        </h3>
-        <p>
-          <span data-lang="ru">Давление в груди, ком в горле, усталость — тело хранит то, что мы не позволяем себе чувствовать</span>
-          <span data-lang="he">לחץ בחזה, גוש בגרון, עייפות — הגוף שומר את מה שאנחנו לא מרשים לעצמנו לחוש</span>
-          <span data-lang="en">Chest pressure, lump in the throat, fatigue — the body stores what we don't allow ourselves to feel</span>
-        </p>
+        <h3>רגשות מודחקים</h3>
+        <p>לחץ בחזה, גוש בגרון, עייפות — הגוף שומר את מה שאנחנו לא מרשים לעצמנו לחוש</p>
       </div>
       <div class="psych-card">
         <div class="icon">😟</div>
-        <h3>
-          <span data-lang="ru">Страх, обида, вина, стыд</span>
-          <span data-lang="he">פחד, טינה, אשמה, בושה</span>
-          <span data-lang="en">Fear, Resentment, Guilt, Shame</span>
-        </h3>
-        <p>
-          <span data-lang="ru">Работа с глубинными эмоциями, которые влияют на ваше самочувствие и качество жизни</span>
-          <span data-lang="he">עבודה עם רגשות עמוקים המשפיעים על הרגשתכם ואיכות חייכם</span>
-          <span data-lang="en">Working with deep emotions that affect your well-being and quality of life</span>
-        </p>
+        <h3>פחד, טינה, אשמה, בושה</h3>
+        <p>עבודה עם רגשות עמוקים המשפיעים על הרגשתכם ואיכות חייכם</p>
       </div>
       <div class="psych-card">
         <div class="icon">🔄</div>
-        <h3>
-          <span data-lang="ru">Паттерны и привычки</span>
-          <span data-lang="he">דפוסים והרגלים</span>
-          <span data-lang="en">Patterns & Habits</span>
-        </h3>
-        <p>
-          <span data-lang="ru">Осознание повторяющихся сценариев и создание новых, более здоровых стратегий поведения</span>
-          <span data-lang="he">זיהוי תסריטים חוזרים ויצירת אסטרטגיות התנהגות חדשות ובריאות יותר</span>
-          <span data-lang="en">Recognizing recurring patterns and creating new, healthier behavioral strategies</span>
-        </p>
+        <h3>דפוסים והרגלים</h3>
+        <p>זיהוי תסריטים חוזרים ויצירת אסטרטגיות התנהגות חדשות ובריאות יותר</p>
       </div>
     </div>
   </div>
@@ -879,98 +622,34 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
-    <p class="section-tag">
-      <span data-lang="ru">Услуги и цены</span>
-      <span data-lang="he">שירותים ומחירים</span>
-      <span data-lang="en">Services & Pricing</span>
-    </p>
-    <h2 class="section-title">
-      <span data-lang="ru">Как я могу помочь</span>
-      <span data-lang="he">כיצד אוכל לעזור</span>
-      <span data-lang="en">How I Can Help</span>
-    </h2>
+    <p class="section-tag">שירותים ומחירים</p>
+    <h2 class="section-title">כיצד אוכל לעזור</h2>
     <div class="services-grid">
       <!-- Consultation -->
       <div class="service-card">
-        <span class="service-tag">
-          <span data-lang="ru">Консультация</span>
-          <span data-lang="he">ייעוץ</span>
-          <span data-lang="en">Consultation</span>
-        </span>
-        <h3>
-          <span data-lang="ru">Психологическая консультация</span>
-          <span data-lang="he">ייעוץ פסיכולוגי</span>
-          <span data-lang="en">Psychological Consultation</span>
-        </h3>
+        <span class="service-tag">ייעוץ</span>
+        <h3>ייעוץ פסיכולוגי</h3>
         <div class="price">₪450</div>
-        <p class="price-note">
-          <span data-lang="ru">за сессию · 45–55 минут</span>
-          <span data-lang="he">לפגישה · 45–55 דקות</span>
-          <span data-lang="en">per session · 45–55 minutes</span>
-        </p>
+        <p class="price-note">לפגישה · 45–55 דקות</p>
         <ul>
-          <li>
-            <span data-lang="ru">Разбор конкретного запроса или ситуации</span>
-            <span data-lang="he">עיבוד בקשה או מצב ספציפי</span>
-            <span data-lang="en">Analysis of a specific request or situation</span>
-          </li>
-          <li>
-            <span data-lang="ru">Понимание эмоций и реакций</span>
-            <span data-lang="he">הבנת רגשות ותגובות</span>
-            <span data-lang="en">Understanding emotions and reactions</span>
-          </li>
-          <li>
-            <span data-lang="ru">Практические рекомендации</span>
-            <span data-lang="he">המלצות מעשיות</span>
-            <span data-lang="en">Practical recommendations</span>
-          </li>
+          <li>עיבוד בקשה או מצב ספציפי</li>
+          <li>הבנת רגשות ותגובות</li>
+          <li>המלצות מעשיות</li>
         </ul>
-        <a href="booking.html?service=single" class="btn-primary">
-          <span data-lang="ru">Записаться онлайн</span>
-          <span data-lang="he">👈קבע פגישה אונליין</span>
-          <span data-lang="en">Book Online</span>
-        </a>
+        <a href="booking.html?service=single" class="btn-primary">👈קבע פגישה אונליין</a>
       </div>
       <!-- Package -->
       <div class="service-card featured">
-        <span class="service-tag">
-          <span data-lang="ru">Популярное</span>
-          <span data-lang="he">פופולרי</span>
-          <span data-lang="en">Popular</span>
-        </span>
-        <h3>
-          <span data-lang="ru">Решение проблемы — цикл 3 сессии</span>
-          <span data-lang="he">פתרון בעיה — מחזור 3 פגישות</span>
-          <span data-lang="en">Problem Resolution — 3-Session Cycle</span>
-        </h3>
+        <span class="service-tag">פופולרי</span>
+        <h3>פתרון בעיה — מחזור 3 פגישות</h3>
         <div class="price">₪3,500</div>
         <ul>
-          <li>
-            <span data-lang="ru">3 структурированные сессии по конкретной теме</span>
-            <span data-lang="he">3 פגישות מובנות בנושא ספציפי</span>
-            <span data-lang="en">3 structured sessions on a specific topic</span>
-          </li>
-          <li>
-            <span data-lang="ru">Отслеживание прогресса и результата</span>
-            <span data-lang="he">מעקב אחר התקדמות ותוצאה</span>
-            <span data-lang="en">Progress tracking and outcome</span>
-          </li>
-          <li>
-            <span data-lang="ru">Поддержка между сессиями</span>
-            <span data-lang="he">תמיכה בין הפגישות</span>
-            <span data-lang="en">Support between sessions</span>
-          </li>
-          <li>
-            <span data-lang="ru">Конкретный план действий</span>
-            <span data-lang="he">תוכנית פעולה ספציפית</span>
-            <span data-lang="en">Specific action plan</span>
-          </li>
+          <li>3 פגישות מובנות בנושא ספציפי</li>
+          <li>מעקב אחר התקדמות ותוצאה</li>
+          <li>תמיכה בין הפגישות</li>
+          <li>תוכנית פעולה ספציפית</li>
         </ul>
-        <a href="booking.html?service=package" class="btn-primary" style="background:white;color:var(--sage-dk);">
-          <span data-lang="ru">Записаться онлайн</span>
-          <span data-lang="he">👈קבע פגישה אונליין</span>
-          <span data-lang="en">Book Online</span>
-        </a>
+        <a href="booking.html?service=package" class="btn-primary" style="background:white;color:var(--sage-dk);">👈קבע פגישה אונליין</a>
       </div>
     </div>
   </div>
@@ -979,68 +658,28 @@
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="section-inner">
-    <p class="section-tag" style="text-align:center;">
-      <span data-lang="ru">Как это работает</span>
-      <span data-lang="he">איך זה עובד</span>
-      <span data-lang="en">How it works</span>
-    </p>
-    <h2 class="section-title" style="text-align:center;">
-      <span data-lang="ru">Путь клиента</span>
-      <span data-lang="he">מסע הלקוח</span>
-      <span data-lang="en">Your journey</span>
-    </h2>
+    <p class="section-tag" style="text-align:center;">איך זה עובד</p>
+    <h2 class="section-title" style="text-align:center;">מסע הלקוח</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h4>
-          <span data-lang="ru">Запись</span>
-          <span data-lang="he">הרשמה</span>
-          <span data-lang="en">Book</span>
-        </h4>
-        <p>
-          <span data-lang="ru">Выберите удобное время онлайн</span>
-          <span data-lang="he">בחרו זמן נוח באופן מקוון</span>
-          <span data-lang="en">Choose a convenient time online</span>
-        </p>
+        <h4>הרשמה</h4>
+        <p>בחרו זמן נוח באופן מקוון</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h4>
-          <span data-lang="ru">Подтверждение</span>
-          <span data-lang="he">אישור</span>
-          <span data-lang="en">Confirm</span>
-        </h4>
-        <p>
-          <span data-lang="ru">Принятие условий и онлайн-оплата</span>
-          <span data-lang="he">אישור תנאים ותשלום אונליין</span>
-          <span data-lang="en">Accept terms & online payment</span>
-        </p>
+        <h4>אישור</h4>
+        <p>אישור תנאים ותשלום אונליין</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h4>
-          <span data-lang="ru">Сессия</span>
-          <span data-lang="he">פגישה</span>
-          <span data-lang="en">Session</span>
-        </h4>
-        <p>
-          <span data-lang="ru">45–55 минут продуктивной работы</span>
-          <span data-lang="he">45–55 דקות עבודה פורה</span>
-          <span data-lang="en">45–55 minutes of productive work</span>
-        </p>
+        <h4>פגישה</h4>
+        <p>45–55 דקות עבודה פורה</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <h4>
-          <span data-lang="ru">Результат</span>
-          <span data-lang="he">תוצאה</span>
-          <span data-lang="en">Result</span>
-        </h4>
-        <p>
-          <span data-lang="ru">Ясность, инструменты, прогресс</span>
-          <span data-lang="he">בהירות, כלים, התקדמות</span>
-          <span data-lang="en">Clarity, tools, progress</span>
-        </p>
+        <h4>תוצאה</h4>
+        <p>בהירות, כלים, התקדמות</p>
       </div>
     </div>
   </div>
@@ -1050,21 +689,9 @@
 <section id="contact">
   <div class="section-inner">
     <div class="contact-inner">
-      <p class="section-tag">
-        <span data-lang="ru">Контакт</span>
-        <span data-lang="he">צור קשר</span>
-        <span data-lang="en">Contact</span>
-      </p>
-      <h2 class="section-title">
-        <span data-lang="ru">Записаться онлайн</span>
-        <span data-lang="he">👈קבע פגישה אונליין</span>
-        <span data-lang="en">Book an Online Session</span>
-      </h2>
-      <p style="color:var(--mid); font-size:.95rem;">
-        <span data-lang="ru">Свяжитесь со мной любым удобным способом — отвечу в течение 24 часов</span>
-        <span data-lang="he">צרו איתי קשר בכל דרך נוחה — אחזור תוך 24 שעות</span>
-        <span data-lang="en">Reach me any convenient way — I'll respond within 24 hours</span>
-      </p>
+      <p class="section-tag">צור קשר</p>
+      <h2 class="section-title">👈קבע פגישה אונליין</h2>
+      <p style="color:var(--mid); font-size:.95rem;">צרו איתי קשר בכל דרך נוחה — אחזור תוך 24 שעות</p>
       <div class="contact-info">
         <a href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" class="contact-item">
           <span class="contact-mark"><img src="whatsapp-official-icon.svg" alt="" aria-hidden="true"></span>
@@ -1093,15 +720,9 @@
           Instagram
         </a>
       </div>
-      <a href="booking.html" class="btn-primary" style="font-size:1.05rem; padding:16px 40px;">
-        <span data-lang="ru">Записаться онлайн 👈</span>
-        <span data-lang="he">👈קבע פגישה אונליין</span>
-        <span data-lang="en">👉 Book an Online Session</span>
-      </a>
+      <a href="booking.html" class="btn-primary" style="font-size:1.05rem; padding:16px 40px;">👈קבע פגישה אונליין</a>
       <div class="policy-note">
-        <span data-lang="ru">⚠️ Политика отмены: бесплатная отмена не позднее чем за 24 часа. При поздней отмене или неявке возвращается 50% оплаты.</span>
-        <span data-lang="he">⚠️ מדיניות ביטול: ביטול ללא עלות עד 24 שעות לפני הפגישה. בביטול מאוחר או באי-הגעה יוחזרו 50% מהתשלום.</span>
-        <span data-lang="en">⚠️ Cancellation policy: free cancellation up to 24 hours before the appointment. Late cancellations or no-shows receive a 50% refund.</span>
+        ⚠️ מדיניות ביטול: ביטול ללא עלות עד 24 שעות לפני הפגישה. בביטול מאוחר או באי-הגעה יוחזרו 50% מהתשלום.
       </div>
     </div>
   </div>
@@ -1109,56 +730,15 @@
 
 <!-- FOOTER -->
 <footer>
-  <strong>
-    <span data-lang="ru">Дмитрий Казаков</span>
-    <span data-lang="he">דמיטרי קזקוב</span>
-    <span data-lang="en">Dmitriy Kazakov</span>
-  </strong><br>
-  <span data-lang="ru">Языки · Русский, иврит</span>
-  <span data-lang="he">שפות · רוסית, עברית</span>
-  <span data-lang="en">Languages · Russian, Hebrew</span>
+  <strong>דמיטרי קזקוב</strong><br>
+  שפות · רוסית, עברית
 </footer>
 
 <script>
-  const localizedTitles = {
-    ru: 'Дмитрий Казаков — Психолог',
-    he: 'דמיטרי קזקוב — פסיכולוג',
-    en: 'Dmitriy Kazakov — Psychologist'
-  };
-
-  const localizedNames = {
-    ru: 'Дмитрий Казаков',
-    he: 'דמיטרי קזקוב',
-    en: 'Dmitriy Kazakov'
-  };
-
-  function applyLang(lang) {
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
-    document.title = localizedTitles[lang] || localizedTitles.ru;
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.langCode === lang);
-    });
-
-    const heroPhoto = document.querySelector('.hero-image img');
-    if (heroPhoto) {
-      heroPhoto.alt = localizedNames[lang] || localizedNames.ru;
-    }
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
     const heroPhoto = document.querySelector('.hero-image img');
-    if (heroPhoto) {
-      heroPhoto.src = 'dmitry-photo-new.png';
-    }
-    const savedLang = localStorage.getItem('dmitrySiteLang') || document.documentElement.getAttribute('lang') || 'ru';
-    applyLang(savedLang);
+    if (heroPhoto) heroPhoto.src = 'dmitry-photo-new.png';
   });
-
-  function setLang(lang) {
-    localStorage.setItem('dmitrySiteLang', lang);
-    applyLang(lang);
-  }
 
   document.addEventListener('click', (event) => {
     const button = event.target.closest('[data-readmore-btn]');
