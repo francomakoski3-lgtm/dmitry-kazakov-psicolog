@@ -50,12 +50,41 @@
       font-size: 1.1rem; font-weight: 700; color: var(--sage-dk);
       text-decoration: none; letter-spacing: .5px;
     }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--mid); font-size: .92rem;
       transition: color var(--transition);
     }
     .nav-links a:hover { color: var(--sage-dk); }
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(107,143,113,.18);
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0;
+    }
+    .nav-toggle-line {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--sage-dk);
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    nav.nav-open .nav-toggle-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.nav-open .nav-toggle-line:nth-child(2) { opacity: 0; }
+    nav.nav-open .nav-toggle-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     .lang-switcher { display: flex; gap: 6px; }
     .lang-btn {
       border: 1.5px solid var(--sage-lt);
@@ -111,6 +140,12 @@
       display: block;
       font-size: 1.02rem;
       margin-bottom: 4px;
+    }
+    .hero-callout-strong-line { font-weight: 700; }
+    .hero-callout-underline {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 2px;
     }
     .hero-callout-extra[hidden] { display: none !important; }
     .hero-readmore {
@@ -334,8 +369,21 @@
     .steps { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
     .step {
       background: var(--white); border-radius: var(--radius);
-      padding: 28px 24px; flex: 1; min-width: 180px; max-width: 220px;
-      text-align: center; box-shadow: 0 2px 16px var(--shadow);
+      padding: 28px 24px; flex: 1; min-width: 200px; max-width: 240px;
+      display: block; text-align: center; box-shadow: 0 2px 16px var(--shadow);
+    }
+    .step-link {
+      color: inherit;
+      text-decoration: none;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .step-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(41, 61, 45, .14);
+    }
+    .step-link:focus-visible {
+      outline: 3px solid rgba(87, 120, 97, .45);
+      outline-offset: 4px;
     }
     .step-num {
       width: 48px; height: 48px; background: var(--sage-dk);
@@ -344,7 +392,7 @@
       justify-content: center; margin: 0 auto 14px;
     }
     .step h4 { font-size: .95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
-    .step p { font-size: .84rem; color: var(--mid); }
+    .step p { font-size: .84rem; color: var(--mid); line-height: 1.65; }
 
     /* ===== CONTACT ===== */
     #contact { background: var(--white); }
@@ -377,6 +425,15 @@
       border-color: rgba(87, 120, 97, .24);
       box-shadow: 0 14px 28px rgba(41, 61, 45, .12);
     }
+    .contact-item.email-link {
+      font-size: .88rem;
+    }
+    .contact-email-text {
+      direction: ltr;
+      unicode-bidi: plaintext;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
     .contact-mark {
       width: 18px;
       height: 18px;
@@ -405,11 +462,6 @@
         width: 100%;
       }
     }
-    .policy-note {
-      font-size: .82rem; color: var(--light); margin-top: 20px;
-      padding: 14px; background: var(--warm); border-radius: 10px;
-    }
-
     /* ===== FOOTER ===== */
     footer {
       background: var(--charcoal); color: #aaa;
@@ -420,10 +472,103 @@
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       .about-grid { grid-template-columns: 1fr; }
-      .hero-image { display: none; }
-      .nav-links { display: none; }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 168px;
+        gap: 18px 12px;
+        align-items: start;
+      }
+      .hero-text { display: contents; }
+      .hero-tag {
+        grid-column: 1;
+        justify-self: start;
+        width: fit-content;
+        margin-bottom: 0;
+        max-width: 100%;
+        line-height: 1.35;
+      }
+      .hero-name {
+        grid-column: 1;
+        margin-bottom: 8px;
+        font-size: clamp(2rem, 9vw, 2.8rem);
+      }
+      .hero-title {
+        grid-column: 1;
+        margin-bottom: 0;
+      }
+      .hero-image {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+        display: flex;
+        width: 168px;
+        height: 204px;
+        flex: 0 0 auto;
+        justify-self: end;
+        align-self: start;
+        border-radius: 18px;
+        box-shadow: 0 14px 28px rgba(41, 61, 45, .14);
+      }
+      .hero-callout {
+        grid-column: 1 / -1;
+        max-width: none;
+        margin: 4px 0 0;
+        padding: 18px 20px;
+      }
+      .hero-booking-cta {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+      .nav-toggle { display: inline-flex; }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 5%;
+        right: 5%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 18px;
+        background: rgba(247,244,239,.98);
+        border: 1px solid var(--warm);
+        border-radius: 18px;
+        box-shadow: 0 18px 34px rgba(41, 61, 45, .16);
+      }
+      nav.nav-open .nav-menu { display: flex; }
+      .nav-links {
+        flex-direction: column;
+        gap: 0;
+      }
+      .nav-links a {
+        display: block;
+        padding: 10px 0;
+      }
+      .nav-links li:not(:last-child) a {
+        border-bottom: 1px solid rgba(87, 120, 97, .12);
+      }
+      .lang-switcher {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
       .steps { gap: 16px; }
       .step { min-width: 140px; }
+    }
+    @media (max-width: 360px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr) 144px;
+        gap: 16px 14px;
+      }
+      .hero-image {
+        width: 144px;
+        height: 177px;
+      }
+      .hero-tag {
+        padding: 4px 12px;
+        font-size: .74rem;
+      }
+      .hero-name {
+        font-size: clamp(1.85rem, 8.8vw, 2.35rem);
+      }
     }
   </style>
 </head>
@@ -432,17 +577,25 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#hero">D. Kazakov</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="../credentials.html">Credentials</a></li>
-    <li><a href="#psychosomatics">Psychosomatics</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="../booking.html">Book</a></li>
-  </ul>
-  <div class="lang-switcher">
-    <a class="lang-btn" href="/">עב</a>
-    <a class="lang-btn" href="/ru/">РУ</a>
-    <a class="lang-btn active" href="/en/">EN</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu" data-nav-toggle>
+    <span class="nav-toggle-line"></span>
+    <span class="nav-toggle-line"></span>
+    <span class="nav-toggle-line"></span>
+  </button>
+  <div class="nav-menu" data-nav-menu>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="../credentials.html">Credentials</a></li>
+      <li><a href="#psychosomatics">Psychosomatics</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="../booking.html">Book</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <a class="lang-btn" href="../index.html">עב</a>
+      <a class="lang-btn" href="../ru/index.html">РУ</a>
+      <a class="lang-btn active" href="index.html">EN</a>
+    </div>
   </div>
 </nav>
 
@@ -452,20 +605,20 @@
     <div class="hero-text">
       <div class="hero-tag">Languages · Russian, Hebrew</div>
       <h1 class="hero-name">Dmitriy Kazakov</h1>
-      <p class="hero-title">Psychosomatic Counseling · Problem Solving · Result Tracking</p>
+      <p class="hero-title">Psychosomatic Counseling</p>
       <div class="hero-callout">
         <div id="hero-callout-en-summary">
           <strong>Deep change in self-confidence through online emotional-body work</strong>
           When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
           and disproportionate emotional reactions begin to appear.
-          We work with the root of the pattern, not only with the behavior it creates.
+          We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.
         </div>
         <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-en-summary" data-target="hero-callout-en-full">Read more</a>
         <div id="hero-callout-en-full" class="hero-callout-extra" hidden>
           <strong>Deep change in self-confidence through online emotional-body work</strong>
           When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
           and disproportionate emotional reactions begin to appear.
-          We work with the root of the pattern, not only with the behavior it creates.<br><br>
+          We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.<br><br>
           This may sound familiar:
           <ul class="hero-callout-list">
             <li>You overthink before you speak</li>
@@ -474,11 +627,11 @@
             <li>You feel emotionally responsible for other people</li>
             <li>Sometimes you "disappear" inside other people</li>
           </ul>
-          This is not your personality.<br>
-          It is an internal pattern that can be changed.
+          <span class="hero-callout-strong-line">This is not your personality.</span><br>
+          It is an internal pattern that can be <span class="hero-callout-underline">changed</span>.
         </div>
       </div>
-      <a href="../booking.html" class="btn-primary hero-booking-cta">👉 Book an Online Session</a>
+      <a href="../booking.html" class="btn-primary hero-booking-cta">Book an Online Session</a>
     </div>
     <div class="hero-image" style="background:none; padding:0; overflow:hidden;"><img src="../dmitry-photo.png" alt="Dmitriy Kazakov" style="width:100%;height:100%;object-fit:cover;border-radius:24px;"/></div>
   </div>
@@ -518,7 +671,7 @@
         <div class="value-item">
           <div class="value-icon">⏱️</div>
           <div class="value-text">
-            <h4>Sessions 45–55 minutes</h4>
+            <h4>until one hour</h4>
             <p>Enough time for deep and productive work</p>
           </div>
         </div>
@@ -607,12 +760,12 @@
     <p class="section-tag">Services &amp; Pricing</p>
     <h2 class="section-title">How I Can Help</h2>
     <div class="services-grid">
-      <!-- Consultation -->
+      <!-- Session -->
       <div class="service-card">
-        <span class="service-tag">Consultation</span>
-        <h3>Psychological Consultation</h3>
+        <span class="service-tag">Session</span>
+        <h3>Personal Mapping and Resolution Session</h3>
         <div class="price">₪450</div>
-        <p class="price-note">per session · 45–55 minutes</p>
+        <p class="price-note">per session · until one hour</p>
         <ul>
           <li>Analysis of a specific request or situation</li>
           <li>Understanding emotions and reactions</li>
@@ -622,14 +775,14 @@
       </div>
       <!-- Package -->
       <div class="service-card featured">
-        <span class="service-tag">Popular</span>
-        <h3>Problem Resolution — 3-Session Cycle</h3>
+        <span class="service-tag">Intensive Therapy</span>
+        <h3>Problem Resolution - Cycle of up to Three Sessions</h3>
         <div class="price">₪3,500</div>
         <ul>
-          <li>3 structured sessions on a specific topic</li>
-          <li>Progress tracking and outcome</li>
-          <li>Support between sessions</li>
-          <li>Specific action plan</li>
+          <li>Focus on a specific issue: fear, anxiety, personal growth, self-confidence.</li>
+          <li>A clear and personalized action plan</li>
+          <li>Personal follow-up on your progress</li>
+          <li>A definite outcome check — you will feel the change!</li>
         </ul>
         <a href="../booking.html?service=package" class="btn-primary" style="background:white;color:var(--sage-dk);">Book Online</a>
       </div>
@@ -640,28 +793,28 @@
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="section-inner">
-    <p class="section-tag" style="text-align:center;">How it works</p>
-    <h2 class="section-title" style="text-align:center;">Your journey</h2>
+    <p class="section-tag" style="text-align:center;">How to get started</p>
+    <h2 class="section-title" style="text-align:center;">Your first session</h2>
     <div class="steps">
-      <div class="step">
+      <a class="step step-link" href="../booking.html" aria-label="Choose a time and open the booking page">
         <div class="step-num">1</div>
-        <h4>Book</h4>
-        <p>Choose a convenient time online</p>
-      </div>
+        <h4>Choose a time</h4>
+        <p>Pick one of the available online appointments.</p>
+      </a>
       <div class="step">
         <div class="step-num">2</div>
-        <h4>Confirm</h4>
-        <p>Accept terms &amp; online payment</p>
+        <h4>Confirm your booking</h4>
+        <p>Once your reservation is confirmed, you will receive all the necessary details.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h4>Session</h4>
-        <p>45–55 minutes of productive work</p>
+        <h4>Join your session</h4>
+        <p>Your first online session lasts up to one hour.</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <h4>Result</h4>
-        <p>Clarity, tools, progress</p>
+        <h4>Get clear next steps</h4>
+        <p>After the session, we will guide you on how to continue.</p>
       </div>
     </div>
   </div>
@@ -672,8 +825,8 @@
   <div class="section-inner">
     <div class="contact-inner">
       <p class="section-tag">Contact</p>
-      <h2 class="section-title">Book an Online Session</h2>
-      <p style="color:var(--mid); font-size:.95rem;">Reach me any convenient way — I'll respond within 24 hours</p>
+      <h2 class="section-title">Have a question?</h2>
+      <p style="color:var(--mid); font-size:.95rem;">Write to us through any of these channels and we'll get back to you as soon as possible.</p>
       <div class="contact-info">
         <a href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" class="contact-item">
           <span class="contact-mark"><img src="../whatsapp-official-icon.svg" alt="" aria-hidden="true"></span>
@@ -685,13 +838,13 @@
           </span>
           Telegram
         </a>
-        <a href="mailto:kadimaclinic@gmail.com" class="contact-item">
+        <a href="mailto:kadimaclinic@gmail.com" class="contact-item email-link">
           <span class="contact-mark email" aria-hidden="true">
             <svg viewBox="0 0 24 24">
               <path fill="currentColor" d="M3.75 5.5h16.5A1.75 1.75 0 0 1 22 7.25v9.5a1.75 1.75 0 0 1-1.75 1.75H3.75A1.75 1.75 0 0 1 2 16.75v-9.5A1.75 1.75 0 0 1 3.75 5.5Zm0 1.5a.25.25 0 0 0-.18.08l8.43 6.38 8.43-6.38a.25.25 0 0 0-.18-.08H3.75Zm16.75 1.91-7.83 5.92a1.2 1.2 0 0 1-1.34 0L3.5 8.91v7.84c0 .14.11.25.25.25h16.5a.25.25 0 0 0 .25-.25V8.91Z"/>
             </svg>
           </span>
-          Email
+          <span class="contact-email-text">kadimaclinic@gmail.com</span>
         </a>
         <a href="https://www.instagram.com/dimatherapy" target="_blank" rel="noopener noreferrer" class="contact-item">
           <span class="contact-mark instagram" aria-hidden="true">
@@ -702,10 +855,7 @@
           Instagram
         </a>
       </div>
-      <a href="../booking.html" class="btn-primary" style="font-size:1.05rem; padding:16px 40px;">👉 Book an Online Session</a>
-      <div class="policy-note">
-        ⚠️ Cancellation policy: free cancellation up to 24 hours before the appointment. Late cancellations or no-shows receive a 50% refund.
-      </div>
+      <a href="../booking.html" class="btn-primary" style="font-size:1.05rem; padding:16px 40px;">Book an Online Session</a>
     </div>
   </div>
 </section>
@@ -720,6 +870,41 @@
   document.addEventListener('DOMContentLoaded', () => {
     const heroPhoto = document.querySelector('.hero-image img');
     if (heroPhoto) heroPhoto.src = '../dmitry-photo-new.png';
+
+    const nav = document.querySelector('nav');
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const navMenu = document.querySelector('[data-nav-menu]');
+    if (nav && navToggle && navMenu) {
+      const closeNav = () => {
+        nav.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      };
+      const toggleNav = () => {
+        const isOpen = nav.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      };
+
+      navToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleNav();
+      });
+
+      navMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) closeNav();
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        if (window.innerWidth <= 768 && nav.classList.contains('nav-open') && !event.target.closest('nav')) {
+          closeNav();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeNav();
+      });
+    }
   });
 
   document.addEventListener('click', (event) => {
