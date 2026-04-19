@@ -174,7 +174,13 @@
       margin: 14px 0;
       padding-inline-start: 20px;
     }
-    .hero-callout-list li { margin-bottom: 6px; }
+    .hero-callout-list li { margin-bottom: 12px; }
+    .hero-callout-list li:last-child { margin-bottom: 0; }
+    .hero-callout-list strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--sage-dk);
+    }
     .btn-primary {
       display: inline-block; background: var(--sage-dk);
       color: var(--white); text-decoration: none;
@@ -622,22 +628,27 @@
           and disproportionate emotional reactions begin to appear.
           We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.
         </div>
-        <a href="#" class="hero-readmore" data-readmore-btn data-hide-target="hero-callout-en-summary" data-target="hero-callout-en-full">Read more</a>
+        <a href="#" class="hero-readmore" id="hero-callout-en-more" data-readmore-btn data-hide-target="hero-callout-en-summary" data-target="hero-callout-en-full">Read more</a>
         <div id="hero-callout-en-full" class="hero-callout-extra" hidden>
           <strong>Deep change in self-confidence through online emotional-body work</strong>
           When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
           and disproportionate emotional reactions begin to appear.
           We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.<br><br>
-          This may sound familiar:
+          Common situations — maybe you recognize yourself here:
           <ul class="hero-callout-list">
-            <li>You overthink before you speak</li>
-            <li>It is hard for you to set boundaries without feeling bad</li>
-            <li>Criticism affects you more than you would like</li>
-            <li>You feel emotionally responsible for other people</li>
-            <li>Sometimes you "disappear" inside other people</li>
+            <li><strong>Fear of job interviews</strong>You prepare again and again, but when the moment comes, your voice weakens, your thoughts get tangled, and you leave feeling that you did not really bring yourself into the room.</li>
+            <li><strong>Procrastination</strong>You know exactly what needs to be done, but something stops you. You put it off, get busy with small things, and then pressure, guilt, and a sense of missing out take over.</li>
+            <li><strong>Fear of getting close (relationships)</strong>You want to get close, but the moment it starts to become real, fear of rejection comes up, and you shut down or pull away.</li>
+            <li><strong>Fear of public speaking / fear of expressing yourself</strong>You know what you want to say, but your body reacts — a racing heart, dry mouth, fear of being judged.</li>
+            <li><strong>Fear of being seen / succeeding in your field</strong>You have real abilities, but a thought comes up: “They will see me, judge me, reject me.” And you stay behind.</li>
+            <li><strong>Fear of making mistakes / feelings of inferiority</strong>Thoughts like: “I’m not good enough,” “Others are better than me” stop you from taking action.</li>
+            <li><strong>Fear of change</strong>Even when you know something is not good for you, it is hard to move. The unknown feels more threatening than the current situation.</li>
+            <li><strong>Difficulty setting boundaries</strong>You say “yes” when you want to say “no,” and then stay with frustration, inner anger, and exhaustion.</li>
+            <li><strong>Social anxiety</strong>Before or during social situations, tension rises, self-consciousness gets stronger, and fear appears around how other people see you.</li>
           </ul>
           <span class="hero-callout-strong-line">This is not your personality.</span><br>
           It is an internal pattern that can be <span class="hero-callout-underline">changed</span>.
+          <a href="#" class="hero-readmore" data-readless-btn data-target="hero-callout-en-full" data-show-target="hero-callout-en-summary" data-readmore-id="hero-callout-en-more">Read less</a>
         </div>
       </div>
       <a href="../booking.html" class="btn-primary hero-booking-cta">Book an Online Session</a>
@@ -751,7 +762,7 @@
       </div>
       <div class="psych-card">
         <div class="icon">😟</div>
-        <h3>Fear, Resentment, Guilt, Shame</h3>
+        <h3>Anger, Fear, Resentment, Guilt, Shame</h3>
         <p>Working with deep emotions that affect your well-being and quality of life</p>
       </div>
       <div class="psych-card">
@@ -917,21 +928,43 @@
   });
 
   document.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-readmore-btn]');
-    if (!button) return;
+    const moreButton = event.target.closest('[data-readmore-btn]');
+    if (moreButton) {
+      event.preventDefault();
+      const targetId = moreButton.getAttribute('data-target');
+      const hideTargetId = moreButton.getAttribute('data-hide-target');
+      const target = targetId ? document.getElementById(targetId) : null;
+      const hideTarget = hideTargetId ? document.getElementById(hideTargetId) : null;
+      if (!target) return;
+
+      target.hidden = false;
+      if (hideTarget) {
+        hideTarget.hidden = true;
+      }
+      moreButton.hidden = true;
+      return;
+    }
+
+    const lessButton = event.target.closest('[data-readless-btn]');
+    if (!lessButton) return;
 
     event.preventDefault();
-    const targetId = button.getAttribute('data-target');
-    const hideTargetId = button.getAttribute('data-hide-target');
+    const targetId = lessButton.getAttribute('data-target');
+    const showTargetId = lessButton.getAttribute('data-show-target');
+    const readmoreId = lessButton.getAttribute('data-readmore-id');
     const target = targetId ? document.getElementById(targetId) : null;
-    const hideTarget = hideTargetId ? document.getElementById(hideTargetId) : null;
-    if (!target) return;
+    const showTarget = showTargetId ? document.getElementById(showTargetId) : null;
+    const readmoreButton = readmoreId ? document.getElementById(readmoreId) : null;
 
-    target.hidden = false;
-    if (hideTarget) {
-      hideTarget.hidden = true;
+    if (target) {
+      target.hidden = true;
     }
-    button.remove();
+    if (showTarget) {
+      showTarget.hidden = false;
+    }
+    if (readmoreButton) {
+      readmoreButton.hidden = false;
+    }
   });
 </script>
 <a class="whatsapp-help" href="https://wa.me/972528056068" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
