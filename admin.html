@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon-d.png">
+  <title>Admin panel | Dima Therapy</title>
+  <meta
+    name="description"
+    content="Private admin panel for monitoring the Dima Therapy site.">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <link rel="stylesheet" href="admin.css?v=20260420-0115">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body class="admin-body cp-mode">
+  <div class="boot-screen" id="boot-screen" aria-live="polite">
+    <div class="boot-shell">
+      <div class="boot-header">
+        <span class="boot-label" data-i18n="bootLabel">Carga del sistema</span>
+        <span class="boot-percent" id="boot-percent">0%</span>
+      </div>
+      <h1 class="boot-title" data-i18n="bootTitle">Inicializando panel de control</h1>
+      <div class="boot-progress">
+        <div class="boot-progress-fill" id="boot-progress-fill"></div>
+      </div>
+      <ul class="boot-list">
+        <li class="boot-status" data-i18n="bootStatus1">Sincronizando interfaz...</li>
+        <li class="boot-status" data-i18n="bootStatus2">Validando acceso seguro...</li>
+        <li class="boot-status" data-i18n="bootStatus3">Preparando metricas del panel...</li>
+      </ul>
+      <p class="boot-footer" data-i18n="bootFooter">dima_admin :: online</p>
+    </div>
+  </div>
+
+  <div class="admin-shell">
+    <div class="language-dock">
+      <span class="language-caption" data-i18n="languageLabel">Idioma</span>
+      <div class="language-switch" id="language-switch" data-lang="es" aria-label="Selector de idioma">
+        <div class="language-knob" aria-hidden="true"></div>
+        <button type="button" class="language-option is-active" data-lang="es">Español</button>
+        <button type="button" class="language-option" data-lang="en">English</button>
+        <button type="button" class="language-option" data-lang="ru">Русский</button>
+        <button type="button" class="language-option" data-lang="he">עברית</button>
+      </div>
+    </div>
+
+    <section class="login-view" id="login-view">
+      <div class="login-card">
+        <div class="login-copy">
+          <span class="eyebrow" data-i18n="loginEyebrow">Panel privado</span>
+          <h1 data-i18n="loginTitle">Controla el panel de Dima Therapy desde una sola vista.</h1>
+          <p data-i18n="loginCopy">
+            Este acceso privado abre un panel de monitoreo independiente para el proyecto de
+            Dima, sin compartir archivos ni logica con otros sitios.
+          </p>
+          <ul class="login-points">
+            <li data-i18n="loginPoint1">Acceso con usuario y contrasena local.</li>
+            <li data-i18n="loginPoint2">Panel separado del proyecto Gestoria Sonia.</li>
+            <li data-i18n="loginPoint3">Vista cyberpunk con resumen y actividad.</li>
+          </ul>
+        </div>
+
+        <form class="login-form" id="login-form">
+          <h2 data-i18n="loginHeading">Ingresar al panel</h2>
+          <label>
+            <span data-i18n="usernameLabel">Usuario</span>
+            <input type="text" name="username" autocomplete="username" required>
+          </label>
+          <label>
+            <span data-i18n="passwordLabel">Contrasena</span>
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="btn btn-primary" data-i18n="loginButton">Entrar</button>
+          <p class="helper-text" data-i18n="loginHelper">
+            Este admin es propio de dimatherapyonline.com y no depende del proyecto Sonia.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard-view" id="dashboard-view" hidden>
+      <header class="dashboard-topbar">
+        <div>
+          <span class="eyebrow" data-i18n="dashboardEyebrow">Rendimiento</span>
+          <h1 data-i18n="dashboardTitle">Panel de movimientos</h1>
+          <p data-i18n="dashboardDescription">
+            Revisa el estado del panel privado, las paginas clave y la actividad reciente.
+          </p>
+        </div>
+
+        <div class="topbar-actions">
+          <span class="user-chip" id="current-user"></span>
+          <button type="button" class="btn btn-secondary" id="logout-button" data-i18n="logoutButton">
+            Cerrar sesion
+          </button>
+        </div>
+      </header>
+
+      <section class="analytics-panel" aria-label="Panel de rendimiento">
+        <div class="analytics-header">
+          <div class="analytics-header-dot"></div>
+          <span class="analytics-header-title" data-i18n="analyticsHeaderTitle">
+            // monitoring system - dimatherapyonline.com
+          </span>
+          <span class="analytics-header-jp" aria-hidden="true">監視システム</span>
+        </div>
+
+        <div class="analytics-summary" id="analytics-summary">
+          <div class="analytics-stat-card">
+            <span class="analytics-stat-label" data-i18n="statTotal">Visitas totales</span>
+            <strong class="analytics-stat-value" id="an-total">0</strong>
+            <span class="jp-sub" aria-hidden="true">総訪問数</span>
+          </div>
+          <div class="analytics-stat-card">
+            <span class="analytics-stat-label" data-i18n="stat30Days">Ultimos 30 dias</span>
+            <strong class="analytics-stat-value" id="an-30d">0</strong>
+            <span class="jp-sub" aria-hidden="true">30日間</span>
+          </div>
+          <div class="analytics-stat-card">
+            <span class="analytics-stat-label" data-i18n="statUnique">Visitantes unicos</span>
+            <strong class="analytics-stat-value" id="an-unique">0</strong>
+            <span class="jp-sub" aria-hidden="true">ユニーク訪問者</span>
+          </div>
+          <div class="analytics-stat-card">
+            <span class="analytics-stat-label" data-i18n="statUnique30Days">Unicos (30 dias)</span>
+            <strong class="analytics-stat-value" id="an-unique-30d">0</strong>
+            <span class="jp-sub" aria-hidden="true">30日ユニーク</span>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <article class="analytics-card">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">
+                  <span data-i18n="pagesEyebrow">Paginas</span>
+                  <span class="jp-tag" aria-hidden="true">ページ</span>
+                </span>
+                <h2 data-i18n="pagesTitle">Mas visitadas</h2>
+              </div>
+            </div>
+            <table class="analytics-table" id="an-top-pages">
+              <thead>
+                <tr>
+                  <th data-i18n="pageColumn">Pagina</th>
+                  <th data-i18n="visitsColumn">Visitas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" class="analytics-empty">Cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="analytics-card">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">
+                  <span data-i18n="interactionsEyebrow">Interacciones</span>
+                  <span class="jp-tag" aria-hidden="true">アクション</span>
+                </span>
+                <h2 data-i18n="interactionsTitle">Botones mas usados</h2>
+              </div>
+            </div>
+            <table class="analytics-table" id="an-top-events">
+              <thead>
+                <tr>
+                  <th data-i18n="actionColumn">Accion</th>
+                  <th data-i18n="elementColumn">Elemento</th>
+                  <th data-i18n="clicksColumn">Clics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" class="analytics-empty">Cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="analytics-card">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">
+                  <span data-i18n="originEyebrow">Origen</span>
+                  <span class="jp-tag" aria-hidden="true">起源</span>
+                </span>
+                <h2 data-i18n="originTitle">Paises de los visitantes</h2>
+              </div>
+            </div>
+            <table class="analytics-table" id="an-top-countries">
+              <thead>
+                <tr>
+                  <th data-i18n="countryColumn">Pais</th>
+                  <th data-i18n="visitsColumn">Visitas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" class="analytics-empty">Cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="analytics-card">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">
+                  <span data-i18n="activityEyebrow">Actividad</span>
+                  <span class="jp-tag" aria-hidden="true">活動</span>
+                </span>
+                <h2 data-i18n="activityTitle">Visitas recientes</h2>
+              </div>
+            </div>
+            <table class="analytics-table" id="an-recent">
+              <thead>
+                <tr>
+                  <th data-i18n="pageColumn">Pagina</th>
+                  <th data-i18n="countryColumn">Pais</th>
+                  <th data-i18n="cityColumn">Ciudad</th>
+                  <th data-i18n="timeColumn">Hora</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="4" class="analytics-empty">Cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="analytics-card analytics-card--full">
+            <div class="card-head">
+              <div>
+                <span class="eyebrow">
+                  <span data-i18n="geoEyebrow">Geolocalizacion</span>
+                  <span class="jp-tag" aria-hidden="true">地図</span>
+                </span>
+                <h2 data-i18n="geoTitle">Mapa de visitas</h2>
+              </div>
+            </div>
+            <div id="geo-map" class="geo-map"></div>
+            <p class="geo-map-hint" data-i18n="geoHint">
+              Este admin es independiente. La fuente de datos real se puede conectar despues.
+            </p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="admin.js?v=20260420-0115"></script>
+</body>
+</html>
