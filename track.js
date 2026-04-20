@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var API_BASE = (window.TRACK_API) || 'https://api.dimatherapyonline.com';
+  var API_BASE = (window.TRACK_API != null ? window.TRACK_API : '');
 
   function send(endpoint, payload) {
     try {
