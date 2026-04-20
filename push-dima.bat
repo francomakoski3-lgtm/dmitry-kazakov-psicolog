@@ -1,82 +1,75 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Push Dima Web
-color 0A
+title Dima Therapy -- Deploy
+color 07
 
 set "REPO_DIR=C:\Users\franc_tcymweq\Desktop\dmitry-kazakov-psicolog"
 set "GIT_EMAIL=francomakoski3@gmail.com"
 set "GIT_NAME=francomakoski3-lgtm"
 
-echo.
-echo  ================================
-echo   Subiendo sitio de Dima...
-echo  ================================
-echo.
+cls
 
-git --version >nul 2>&1
-if errorlevel 1 (
-  echo  Error: Git no esta instalado o no esta en PATH.
-  goto :fail
-)
+powershell -NoProfile -Command "Write-Host; Write-Host '  +----------------------------------------------+' -ForegroundColor Cyan; Write-Host '  |    DIMA THERAPY ONLINE  --  Deploy Tool      |' -ForegroundColor Cyan; Write-Host '  +----------------------------------------------+' -ForegroundColor Cyan; Write-Host"
 
+:: Verificar repo
 if not exist "%REPO_DIR%\.git" (
-  echo  Error: no se encontro un repositorio Git en:
-  echo  %REPO_DIR%
-  goto :fail
+  powershell -NoProfile -Command "Write-Host '  [X] Repositorio no encontrado.' -ForegroundColor Red"
+  goto :esperar
 )
 
 cd /d "%REPO_DIR%"
-if errorlevel 1 (
-  echo  Error: no se pudo abrir la carpeta del proyecto.
-  goto :fail
-)
 
-echo  Agregando cambios del proyecto...
+:: Staging
 git add -A .
-if errorlevel 1 goto :git_error
+if exist ".claude" git restore --staged .claude >nul 2>&1
 
-if exist ".claude" (
-  git restore --staged .claude >nul 2>&1
-)
-
+:: Ver si hay cambios
 git diff --cached --quiet
-if errorlevel 1 (
-  for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`) do set "STAMP=%%i"
-  if not defined STAMP set "STAMP=manual"
-  set "COMMIT_MSG=Deploy: sync web files !STAMP!"
-
-  echo  Creando commit...
-  git -c user.email="%GIT_EMAIL%" -c user.name="%GIT_NAME%" commit -m "!COMMIT_MSG!"
-  if errorlevel 1 goto :git_error
-) else (
-  echo  No hay cambios nuevos para commitear.
+if not errorlevel 1 (
+  powershell -NoProfile -Command "Write-Host '  [!] Sin cambios nuevos. El sitio ya esta al dia.' -ForegroundColor Yellow; Write-Host"
+  goto :sync
 )
 
-echo  Sincronizando con origin/main...
-git pull --rebase origin main
-if errorlevel 1 goto :git_error
+:: Mostrar lista de archivos
+powershell -NoProfile -Command "$lines = git diff --cached --name-status; $count = 0; Write-Host '  Archivos a subir:' -ForegroundColor White; Write-Host '  ------------------------------------------------' -ForegroundColor DarkGray; foreach ($line in $lines) { $parts = $line -split [char]9; $s = $parts[0].Trim()[0]; $f = $parts[-1]; $count++; if ($s -eq 'M') { Write-Host '    ~ ' -ForegroundColor Yellow -NoNewline; Write-Host $f -ForegroundColor Gray } elseif ($s -eq 'A') { Write-Host '    + ' -ForegroundColor Green -NoNewline; Write-Host $f -ForegroundColor Gray } elseif ($s -eq 'D') { Write-Host '    - ' -ForegroundColor Red -NoNewline; Write-Host $f -ForegroundColor Gray } else { Write-Host ('    ? ' + $f) -ForegroundColor Gray } }; Write-Host '  ------------------------------------------------' -ForegroundColor DarkGray; Write-Host ('  Total: ' + $count + ' archivo(s)') -ForegroundColor White; Write-Host; Write-Host '  Leyenda:  ~ Modificado   + Nuevo   - Eliminado' -ForegroundColor DarkGray; Write-Host"
 
-echo  Enviando cambios a GitHub...
+:: Confirmar
+set /p "CONFIRM=  Subir estos cambios? [S/n]: "
+if /i "!CONFIRM!"=="n" (
+  powershell -NoProfile -Command "Write-Host; Write-Host '  Cancelado.' -ForegroundColor Yellow; Write-Host"
+  goto :esperar
+)
+echo.
+
+:: Commit
+powershell -NoProfile -Command "Write-Host '  [1/2] Creando commit...' -ForegroundColor Cyan"
+for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`) do set "STAMP=%%i"
+if not defined STAMP set "STAMP=manual"
+git -c user.email="%GIT_EMAIL%" -c user.name="%GIT_NAME%" commit -m "Deploy: sync web files !STAMP!" >nul 2>&1
+if errorlevel 1 goto :git_error
+powershell -NoProfile -Command "Write-Host '        OK  Commit creado' -ForegroundColor Green; Write-Host"
+timeout /t 1 /nobreak >nul
+
+:sync
+:: Push
+powershell -NoProfile -Command "Write-Host '  [2/2] Subiendo a GitHub...' -ForegroundColor Cyan"
+git pull --rebase origin main >nul 2>&1
 git push origin main
 if errorlevel 1 goto :git_error
+powershell -NoProfile -Command "Write-Host '        OK  Push exitoso' -ForegroundColor Green; Write-Host"
+timeout /t 1 /nobreak >nul
 
-echo.
-echo  ================================
-echo   Listo! Sitio actualizado.
-echo   Hostinger redespliega en ~1 min
-echo  ================================
-echo.
-pause
-exit /b 0
+powershell -NoProfile -Command "Write-Host '  +----------------------------------------------+' -ForegroundColor Green; Write-Host '  |  SITIO ACTUALIZADO EN GITHUB                 |' -ForegroundColor Green; Write-Host '  |  Hostinger redeploy automatico en ~1 minuto  |' -ForegroundColor Green; Write-Host '  +----------------------------------------------+' -ForegroundColor Green; Write-Host"
+goto :esperar
 
 :git_error
-echo.
-echo  Error: Git devolvio un problema durante el push.
-goto :fail
+powershell -NoProfile -Command "Write-Host; Write-Host '  [X] Error en Git. Lee el mensaje de arriba.' -ForegroundColor Red"
 
 :fail
-echo.
-echo  El deploy no se completo.
-echo.
-pause
-exit /b 1
+powershell -NoProfile -Command "Write-Host; Write-Host '  +----------------------------------------------+' -ForegroundColor Red; Write-Host '  |  DEPLOY FALLIDO                              |' -ForegroundColor Red; Write-Host '  +----------------------------------------------+' -ForegroundColor Red; Write-Host"
+
+:esperar
+powershell -NoProfile -Command "Write-Host '  Cierra esta ventana con la X cuando quieras.' -ForegroundColor DarkGray; Write-Host"
+:loop
+timeout /t 3600 /nobreak >nul
+goto :loop
