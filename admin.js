@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
   cacheElements();
   initLanguage();
   bindEvents();
-  startBootSequence();
+  restoreSession();
 });
 
 function cacheElements() {
@@ -324,12 +324,13 @@ function bindEvents() {
 }
 
 async function startBootSequence() {
+  elements.bootScreen.hidden = false;
+  elements.bootScreen.classList.remove('is-hidden');
   document.body.classList.add('is-booting');
-  setLoadingState(t('loadingPanel'));
+  elements.bootPercent.textContent = '0%';
+  elements.bootProgressFill.style.width = '0%';
 
   await animateBootProgress(3000);
-
-  restoreSession();
   finishBootSequence();
 }
 
@@ -426,23 +427,32 @@ function showDashboard() {
   elements.currentUser.textContent = ADMIN_CREDENTIALS.username;
 }
 
-function onLoginSubmit(event) {
+async function onLoginSubmit(event) {
   event.preventDefault();
 
   const username = field(elements.loginForm, 'username').value.trim();
   const password = field(elements.loginForm, 'password').value;
+  const submitButton = elements.loginForm.querySelector('button[type="submit"]');
 
   if (username !== ADMIN_CREDENTIALS.username || password !== ADMIN_CREDENTIALS.password) {
     showToast(t('toastInvalidCredentials'), true);
     return;
   }
 
-  window.sessionStorage.setItem(STORAGE_KEYS.session, '1');
-  state.session = true;
-  elements.loginForm.reset();
-  showDashboard();
-  loadAnalytics();
-  showToast(t('toastSessionStarted'));
+  submitButton.disabled = true;
+
+  try {
+    await startBootSequence();
+
+    window.sessionStorage.setItem(STORAGE_KEYS.session, '1');
+    state.session = true;
+    elements.loginForm.reset();
+    showDashboard();
+    loadAnalytics();
+    showToast(t('toastSessionStarted'));
+  } finally {
+    submitButton.disabled = false;
+  }
 }
 
 function onLogoutClick() {
