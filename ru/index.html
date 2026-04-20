@@ -533,8 +533,8 @@
       .about-grid { grid-template-columns: 1fr; }
       .hero-inner {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 168px;
-        gap: 18px 12px;
+        grid-template-columns: minmax(0, 1fr) 86px;
+        gap: 12px 8px;
         align-items: start;
       }
       .hero-text { display: contents; }
@@ -548,24 +548,25 @@
       }
       .hero-name {
         grid-column: 1;
-        margin-bottom: 8px;
-        font-size: clamp(2rem, 9vw, 2.8rem);
+        margin-bottom: 6px;
+        font-size: clamp(1.65rem, 7.5vw, 2.2rem);
       }
       .hero-title {
         grid-column: 1;
         margin-bottom: 0;
+        font-size: .9rem;
       }
       .hero-image {
         grid-column: 2;
         grid-row: 1 / span 3;
         display: flex;
-        width: 168px;
-        height: 204px;
+        width: 86px;
+        height: 105px;
         flex: 0 0 auto;
         justify-self: end;
         align-self: start;
-        border-radius: 18px;
-        box-shadow: 0 14px 28px rgba(41, 61, 45, .14);
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(41, 61, 45, .14);
       }
       .hero-callout {
         grid-column: 1 / -1;
@@ -611,34 +612,57 @@
       }
       .steps { gap: 16px; }
       .step { min-width: 140px; }
-      section { padding: 52px 5%; }
-      #hero { min-height: auto; padding: 72px 5% 44px; }
-      .section-sub { margin-bottom: 28px; font-size: .96rem; }
+      section { padding: 22px 4%; }
+      #hero { min-height: auto; padding: 76px 4% 18px; }
+      .section-tag { margin-bottom: 4px; font-size: .7rem; }
+      .section-title { font-size: clamp(.95rem, 4vw, 1.25rem); margin-bottom: 6px; }
+      .section-sub { margin-bottom: 12px; font-size: .8rem; line-height: 1.55; }
+      .hero-name { font-size: clamp(1.45rem, 6.5vw, 1.9rem); }
+      .hero-title { font-size: .82rem; }
       .services-grid { grid-template-columns: 1fr; }
-      .service-card { padding: 26px 22px; }
-      .price { font-size: 1.9rem; }
-      .bio-detail { padding: 22px 18px; }
-      .about-grid { gap: 28px; }
-      .psych-card { padding: 20px 14px; }
-      .section-title { font-size: clamp(1.4rem, 5vw, 1.9rem); margin-bottom: 12px; }
-      .btn-primary { padding: 13px 28px; font-size: .95rem; }
-      .step { padding: 22px 16px; }
+      .service-card { padding: 16px 14px; }
+      .service-tag { font-size: .7rem; padding: 2px 10px; margin-bottom: 10px; }
+      .service-card h3 { font-size: 1rem; margin-bottom: 8px; }
+      .price { font-size: 1.5rem; }
+      .price-note { margin-bottom: 10px; font-size: .75rem; }
+      .service-card li { font-size: .78rem; padding: 4px 0; }
+      .service-card ul { margin-bottom: 14px; }
+      .bio-detail { padding: 14px 12px; margin-top: 18px; }
+      .bio-detail p { font-size: .8rem; margin-bottom: 10px; line-height: 1.6; }
+      .bio-list li { font-size: .8rem; margin-bottom: 6px; }
+      .about-grid { gap: 16px; }
+      .value-icon { width: 32px; height: 32px; font-size: .9rem; }
+      .value-text h4 { font-size: .84rem; }
+      .value-text p { font-size: .78rem; }
+      .psych-card { padding: 13px 10px; }
+      .psych-card .icon { font-size: 1.3rem; margin-bottom: 6px; }
+      .psych-card h3 { font-size: .84rem; }
+      .psych-card p { font-size: .76rem; }
+      .btn-primary { padding: 11px 20px; font-size: .85rem; }
+      .step { padding: 15px 12px; }
+      .step-num { width: 36px; height: 36px; font-size: .95rem; margin-bottom: 8px; }
+      .step h4 { font-size: .8rem; }
+      .step p { font-size: .72rem; }
+      .hero-callout { padding: 12px 12px; font-size: .86rem; }
+      .hero-callout strong { font-size: .9rem; }
+      .contact-item { padding: 10px 12px; font-size: .82rem; min-width: 140px; }
+      footer { padding: 16px 4%; font-size: .76rem; }
     }
     @media (max-width: 360px) {
       .hero-inner {
-        grid-template-columns: minmax(0, 1fr) 144px;
-        gap: 16px 14px;
+        grid-template-columns: minmax(0, 1fr) 76px;
+        gap: 10px 6px;
       }
       .hero-image {
-        width: 144px;
-        height: 177px;
+        width: 76px;
+        height: 93px;
       }
       .hero-tag {
-        padding: 4px 12px;
-        font-size: .74rem;
+        padding: 3px 10px;
+        font-size: .72rem;
       }
       .hero-name {
-        font-size: clamp(1.85rem, 8.8vw, 2.35rem);
+        font-size: clamp(1.5rem, 8vw, 1.9rem);
       }
     }
   </style>
@@ -841,7 +865,7 @@
         <span class="service-tag">Сессия</span>
         <h3>Сессия диагностики и личного решения</h3>
         <div class="price">₪450</div>
-        <p class="price-note">за сессию · до одного часа</p>
+        <p class="price-note">за встречу · до одного часа</p>
         <ul>
           <li>Разбор конкретного запроса или ситуации</li>
           <li>Понимание эмоций и реакций</li>
