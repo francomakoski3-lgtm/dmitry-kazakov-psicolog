@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sitio web de Dmitry Kazakov - Psicólogo",
   "scripts": {
-    "build": "echo 'Static site ready'",
+    "build": "cd server && npm install",
     "start": "npx serve ."
   },
   "keywords": ["static", "html"],
