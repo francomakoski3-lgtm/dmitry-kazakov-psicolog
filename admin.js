@@ -1,3 +1,6 @@
+const ANALYTICS_API   = ((window.ANALYTICS_API_BASE || 'https://api.dimatherapyonline.com') + '/api/analytics');
+const ANALYTICS_TOKEN = (window.ANALYTICS_TOKEN || '');
+
 const STORAGE_KEYS = {
   language: 'dima_admin_language',
   session: 'dima_admin_session'
@@ -463,10 +466,26 @@ function onLogoutClick() {
   showToast(t('toastSessionClosed'));
 }
 
-function loadAnalytics() {
-  state.analytics = DEFAULT_ANALYTICS;
-  renderAnalytics(state.analytics);
-  initGeoMap();
+async function loadAnalytics() {
+  setLoadingState(t('loadingPanel'));
+
+  try {
+    const response = await fetch(ANALYTICS_API, {
+      headers: { 'Authorization': 'Bearer ' + ANALYTICS_TOKEN }
+    });
+
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+
+    const data = await response.json();
+    state.analytics = data;
+    renderAnalytics(state.analytics);
+    initGeoMap();
+  } catch (err) {
+    state.analytics = DEFAULT_ANALYTICS;
+    renderAnalytics(state.analytics);
+    initGeoMap();
+    showToast('Analytics no disponible: ' + err.message, true);
+  }
 }
 
 function setLoadingState(message) {

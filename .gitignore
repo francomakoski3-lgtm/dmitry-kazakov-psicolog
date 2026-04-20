@@ -1,0 +1,8 @@
+.claude/
+node_modules/
+server/node_modules/
+server/analytics.db
+server/package-lock.json
+.env
+.env.local
+*.db
