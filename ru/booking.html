@@ -26,8 +26,7 @@
   <meta name="twitter:title" content="Запись на онлайн-сессию | Дмитрий Казаков" />
   <meta name="twitter:description" content="Запишитесь на онлайн-сессию с Дмитрием Казаковым. Выберите удобное время и получите подтверждение и ссылку на встречу по email." />
   <meta name="twitter:image" content="https://dimatherapyonline.com/dmitry-photo.png" />
-  <link rel="preconnect" href="https://calendly.com" />
-  <link rel="preconnect" href="https://assets.calendly.com" />
+  <link rel="preconnect" href="https://calendar.google.com" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -232,6 +231,7 @@
       align-items: flex-start;
       gap: 12px;
       padding: 14px 16px;
+      font-size: .75rem;
       border-radius: 16px;
       border: 1px solid rgba(107, 143, 113, .14);
       background: rgba(107, 143, 113, .06);
@@ -252,8 +252,14 @@
       position: relative;
       overflow: hidden;
       padding: 10px;
+      scroll-margin-top: 88px;
     }
-    .booking-widget-shell:not(.is-ready) .calendly-inline-widget {
+    .booking-inline-frame {
+      display: block;
+      width: 100%;
+      height: 1180px;
+    }
+    .booking-widget-shell:not(.is-ready) .booking-inline-frame {
       pointer-events: none;
       opacity: .35;
       filter: blur(2px);
@@ -335,7 +341,8 @@
       .page { padding-bottom: 36px; }
       .consent-group h2 { font-size: 1.05rem; }
       .consent-group p { font-size: .88rem; }
-      .consent-option { padding: 11px 12px; font-size: .88rem; }
+      .consent-option { padding: 11px 12px; font-size: .66rem; }
+      .booking-inline-frame { height: 1380px; }
     }
   </style>
 </head>
@@ -378,6 +385,10 @@
           <input type="checkbox" class="consent-checkbox" data-booking-consent>
           <span>Мне известно, что если терапевт сочтёт нужным, из профессиональной ответственности и заботы о моём благополучии, процесс может быть прекращён. В этом случае уплаченная сумма будет возвращена.</span>
         </label>
+        <label class="consent-option">
+          <input type="checkbox" class="consent-checkbox" data-booking-consent>
+          <span>Отмена менее чем за 24 часа до встречи или неявка считается поздней отменой, и предоплата удерживается как плата за отмену.</span>
+        </label>
       </div>
     </section>
 
@@ -385,13 +396,17 @@
       <div class="booking-widget-lock" aria-live="polite">
         <p class="booking-widget-note">Пожалуйста, подтвердите все пункты выше, чтобы открыть календарь и записаться на сессию.</p>
       </div>
-      <!-- Calendly inline widget -->
-      <div
-        class="calendly-inline-widget"
-        data-url="https://calendly.com/dima-dimatherapyonline/30min"
-        style="min-width:320px; height:1500px;">
-      </div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <!-- Google Calendar Appointment Scheduling begin -->
+      <iframe
+        class="booking-inline-frame"
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2mOewB_pF8UD84vTSanG86xKEQffKv_COHiapyrPk46Tli7EPs8Ki1co8Dl-UD4e1lCqN66wd7?gv=true"
+        style="border:0"
+        width="100%"
+        height="1180"
+        frameborder="0"
+        scrolling="no"
+        title="Google Calendar Appointment Scheduling"></iframe>
+      <!-- end Google Calendar Appointment Scheduling -->
     </div>
   </main>
 
@@ -405,11 +420,24 @@
 
       if (!checkboxes.length || !widget) return;
 
+      let wasReady = checkboxes.every(function (checkbox) {
+        return checkbox.checked;
+      });
+
       function syncBookingAccess() {
         const isReady = checkboxes.every(function (checkbox) {
           return checkbox.checked;
         });
+
         widget.classList.toggle('is-ready', isReady);
+
+        if (isReady && !wasReady) {
+          window.setTimeout(function () {
+            widget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 160);
+        }
+
+        wasReady = isReady;
       }
 
       checkboxes.forEach(function (checkbox) {

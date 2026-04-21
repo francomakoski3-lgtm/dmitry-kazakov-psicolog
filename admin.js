@@ -1,4 +1,13 @@
-const ANALYTICS_API   = ((window.ANALYTICS_API_BASE || 'https://api.dimatherapyonline.com') + '/api/analytics');
+const ANALYTICS_BASE  = (() => {
+  const configuredBase =
+    typeof window.ANALYTICS_API_BASE === 'string'
+      ? window.ANALYTICS_API_BASE.trim()
+      : '';
+
+  return (configuredBase || window.location.origin).replace(/\/+$/, '');
+})();
+
+const ANALYTICS_API   = `${ANALYTICS_BASE}/api/analytics`;
 const ANALYTICS_TOKEN = (window.ANALYTICS_TOKEN || '');
 
 const STORAGE_KEYS = {
