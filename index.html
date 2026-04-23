@@ -110,8 +110,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       height: 64px;
     }
     .nav-logo {
-      font-size: 1.1rem; font-weight: 700; color: var(--sage-dk);
-      text-decoration: none; letter-spacing: .5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      display: block;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
     }
     .nav-menu {
       display: flex;
@@ -613,6 +621,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       .nav-links a {
         display: block;
+        font-size: 1.2rem;
         padding: 10px 0;
       }
       .nav-links li:not(:last-child) a {
@@ -622,6 +631,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         justify-content: flex-start;
         flex-wrap: wrap;
       }
+      .lang-btn { font-size: 1.04rem; }
       .steps { gap: 16px; }
       .step { min-width: 140px; }
       section { padding: 22px 4%; }
@@ -687,7 +697,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#hero">ד. קזקוב</a>
+  <a class="nav-logo" href="#hero" aria-label="דף הבית">
+    <img src="favicon-d.png" alt="Dmitriy Kazakov logo" width="42" height="42">
+  </a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="פתיחת תפריט" data-nav-toggle>
     <span class="nav-toggle-line"></span>
     <span class="nav-toggle-line"></span>

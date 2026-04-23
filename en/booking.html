@@ -110,10 +110,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      color: var(--sage-dk);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
-      font-weight: 800;
-      letter-spacing: .4px;
+    }
+    .nav-logo img {
+      display: block;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
     }
     .nav-actions {
       display: flex;
@@ -328,6 +334,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         width: 100%;
         justify-content: space-between;
       }
+      .lang-btn { font-size: 1.04rem; }
       .surface {
         padding: 24px;
       }
@@ -359,7 +366,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <nav>
-    <a class="nav-logo" href="index.html">D. Kazakov</a>
+    <a class="nav-logo" href="index.html" aria-label="Home">
+      <img src="../favicon-d.png" alt="Dmitriy Kazakov logo" width="42" height="42">
+    </a>
     <div class="nav-actions">
       <div class="lang-switcher">
         <a class="lang-btn" href="../booking.html">עב</a>
