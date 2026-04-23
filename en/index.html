@@ -210,6 +210,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-size: 1.02rem;
       margin-bottom: 4px;
     }
+    .hero-callout-summary {
+      overflow: hidden;
+      padding-bottom: 4px;
+      max-height: 15.75rem;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 calc(100% - 3.2rem), transparent 100%);
+      mask-image: linear-gradient(180deg, #000 0%, #000 calc(100% - 3.2rem), transparent 100%);
+    }
     .hero-callout-strong-line { font-weight: 700; }
     .hero-callout-underline {
       text-decoration: underline;
@@ -632,39 +639,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .step { min-width: 140px; }
       section { padding: 22px 4%; }
       #hero { min-height: auto; padding: 76px 4% 18px; }
-      .section-tag { margin-bottom: 4px; font-size: .7rem; }
-      .section-title { font-size: clamp(.95rem, 4vw, 1.25rem); margin-bottom: 6px; }
-      .section-sub { margin-bottom: 12px; font-size: .8rem; line-height: 1.55; }
+      .section-tag { margin-bottom: 4px; font-size: .8rem; }
+      .section-title { font-size: clamp(1.25rem, 4.8vw, 1.6rem); margin-bottom: 8px; }
+      .section-sub { margin-bottom: 14px; font-size: 1rem; line-height: 1.6; }
       .hero-name { font-size: clamp(1.45rem, 6.5vw, 1.9rem); }
-      .hero-title { font-size: .82rem; }
+      .hero-title { font-size: 1rem; }
       .services-grid { grid-template-columns: 1fr; }
       .service-card { padding: 16px 14px; }
-      .service-tag { font-size: .7rem; padding: 2px 10px; margin-bottom: 10px; }
-      .service-card h3 { font-size: 1rem; margin-bottom: 8px; }
-      .price { font-size: 1.5rem; }
-      .price-note { margin-bottom: 10px; font-size: .75rem; }
-      .service-card li { font-size: .78rem; padding: 4px 0; }
+      .service-tag { font-size: .82rem; padding: 3px 10px; margin-bottom: 10px; }
+      .service-card h3 { font-size: 1.08rem; margin-bottom: 8px; }
+      .price { font-size: 1.75rem; }
+      .price-note { margin-bottom: 10px; font-size: .95rem; }
+      .service-card li { font-size: .95rem; padding: 5px 0; }
       .service-card ul { margin-bottom: 14px; }
       .bio-detail { padding: 14px 12px; margin-top: 18px; }
-      .bio-detail p { font-size: .8rem; margin-bottom: 10px; line-height: 1.6; }
-      .bio-list li { font-size: .8rem; margin-bottom: 6px; }
+      .bio-detail p { font-size: 1rem; margin-bottom: 10px; line-height: 1.65; }
+      .bio-list li { font-size: .98rem; margin-bottom: 6px; }
       .about-grid { gap: 16px; }
       .value-icon { width: 32px; height: 32px; font-size: .9rem; }
-      .value-text h4 { font-size: .84rem; }
-      .value-text p { font-size: .78rem; }
+      .value-text h4 { font-size: 1rem; }
+      .value-text p { font-size: .95rem; }
       .psych-card { padding: 13px 10px; }
       .psych-card .icon { font-size: 1.3rem; margin-bottom: 6px; }
-      .psych-card h3 { font-size: .84rem; }
-      .psych-card p { font-size: .76rem; }
-      .btn-primary { padding: 11px 20px; font-size: .85rem; }
+      .psych-card h3 { font-size: 1rem; }
+      .psych-card p { font-size: .95rem; }
+      .btn-primary { padding: 12px 22px; font-size: 1rem; }
       .step { padding: 15px 12px; }
       .step-num { width: 36px; height: 36px; font-size: .95rem; margin-bottom: 8px; }
-      .step h4 { font-size: .8rem; }
-      .step p { font-size: .72rem; }
-      .hero-callout { padding: 12px 12px; font-size: .86rem; }
-      .hero-callout strong { font-size: .9rem; }
-      .contact-item { padding: 10px 12px; font-size: .82rem; min-width: 140px; }
-      footer { padding: 16px 4%; font-size: .76rem; }
+      .step h4 { font-size: 1rem; }
+      .step p { font-size: .92rem; }
+      .hero-callout { padding: 12px 12px; font-size: 1rem; }
+      .hero-callout strong { font-size: 1.06rem; }
+      .contact-item { padding: 10px 12px; font-size: .96rem; min-width: 140px; }
+      footer { padding: 16px 4%; font-size: .88rem; }
     }
     @media (max-width: 360px) {
       .hero-inner {
@@ -726,11 +733,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <h1 class="hero-name">Dmitriy Kazakov</h1>
       <p class="hero-title">Psychosomatic Counseling</p>
       <div class="hero-callout">
-        <div id="hero-callout-en-summary">
+        <div id="hero-callout-en-summary" class="hero-callout-summary">
           <strong>Deep change in self-confidence through online emotional-body work</strong>
           When self-confidence is hurt, fear, shame, guilt, people-pleasing,<br>
           and disproportionate emotional reactions begin to appear.
-          We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.
+          We work with the <span class="hero-callout-underline">root</span> of the pattern, not only with the behavior it creates.<br><br>
+          Common situations — maybe you recognize yourself here:
+          <ul class="hero-callout-list">
+            <li><strong>Fear of job interviews</strong>You prepare again and again, but when the moment comes, your voice weakens, your thoughts get tangled, and you leave feeling that you did not really bring yourself into the room.</li>
+          </ul>
         </div>
         <a href="#" class="hero-readmore" id="hero-callout-en-more" data-readmore-btn data-hide-target="hero-callout-en-summary" data-target="hero-callout-en-full">Read more</a>
         <div id="hero-callout-en-full" class="hero-callout-extra" hidden>
