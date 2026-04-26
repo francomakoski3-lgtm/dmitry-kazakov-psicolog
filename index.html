@@ -330,10 +330,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     }
     .hero-image {
-      flex: 0 0 300px; height: 360px;
-      background: linear-gradient(160deg, var(--sage-lt) 0%, var(--sage) 100%);
-      border-radius: 24px; display: flex; align-items: center;
-      justify-content: center; font-size: 7rem; color: var(--white);
+      flex: 0 0 300px;
+      width: 300px;
+      aspect-ratio: 503 / 492;
+      height: auto;
+      background: var(--white);
+      border: 1px solid rgba(87, 120, 97, .16);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 18px 34px rgba(41, 61, 45, .12);
+    }
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      border-radius: inherit;
+      background: var(--white);
     }
 
     /* ===== SECTIONS COMMON ===== */
@@ -588,7 +605,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         grid-row: 1 / span 3;
         display: flex;
         width: 86px;
-        height: 105px;
+        height: auto;
         flex: 0 0 auto;
         justify-self: end;
         align-self: start;
@@ -684,7 +701,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       .hero-image {
         width: 76px;
-        height: 93px;
+        height: auto;
       }
       .hero-tag {
         padding: 3px 10px;
@@ -770,7 +787,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
       <a href="booking.html" class="btn-primary hero-booking-cta">קבע פגישה אונליין</a>
     </div>
-      <div class="hero-image" style="background:none; padding:0; overflow:hidden;"><img src="dmitry-photo.png" alt="דמיטרי קזקוב" width="1179" height="2556" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;border-radius:24px;"/></div>
+      <div class="hero-image"><img src="dmitry-photo.png" alt="דמיטרי קזקוב" width="503" height="492" loading="eager" fetchpriority="high" decoding="async"></div>
   </div>
 </section>
 
@@ -1006,9 +1023,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const heroPhoto = document.querySelector('.hero-image img');
-    if (heroPhoto) heroPhoto.src = 'dmitry-photo-new.png';
-
     const nav = document.querySelector('nav');
     const navToggle = document.querySelector('[data-nav-toggle]');
     const navMenu = document.querySelector('[data-nav-menu]');
